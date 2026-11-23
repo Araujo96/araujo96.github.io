@@ -1,0 +1,16 @@
+# Lista de permissão: tudo fica de fora, exceto o que o site usa.
+# Assim backups (index.antes-*.html), prints originais e arquivos pessoais nunca sobem por engano.
+/*
+!/.gitignore
+!/.nojekyll
+!/README.md
+!/index.html
+
+# imagens do site (a fonte da imagem de compartilhamento fica de fora)
+!/img/
+/img/og-fonte.html
+
+# só o PDF do currículo que o site oferece
+!/cv/
+/cv/*
+!/cv/Lucas_Araujo_CV_Full_Stack.pdf

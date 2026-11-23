@@ -1,0 +1,709 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0a0a09">
+<!-- TROQUE: título, descrição e dados de compartilhamento (aparecem no Google e no LinkedIn) -->
+<title>Lucas Araújo — Desenvolvedor Full Stack (Python & React)</title>
+<meta name="description" content="Portfólio de Lucas Araújo, desenvolvedor full stack em Natal: sistemas web com Python, Django, FastAPI, Celery, Redis, PostgreSQL e React.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Lucas Araújo — Desenvolvedor Full Stack (Python & React)">
+<meta property="og:description" content="Desenvolvedor full stack em Natal: sistemas em produção com Python, Django, FastAPI, Celery e React. Veja a arquitetura e as decisões técnicas de cada projeto.">
+<!-- endereço do site no GitHub Pages: se mudar, troque nas 4 linhas abaixo -->
+<link rel="canonical" href="https://araujo96.github.io/">
+<meta property="og:url" content="https://araujo96.github.io/">
+<meta property="og:image" content="https://araujo96.github.io/img/og.jpg"><!-- 1200x630, gerada a partir de img/og-fonte.html -->
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Lucas Araújo, desenvolvedor full stack">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://araujo96.github.io/img/og.jpg">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230a0a09'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%23ff6b35'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+/* ===== tokens: mude --ac para trocar a cor de destaque do site inteiro ===== */
+:root{--bg:#0a0a09;--bg2:#111110;--fg:#f1eee8;--t2:rgba(241,238,232,.6);--t3:rgba(241,238,232,.36);--ln:rgba(241,238,232,.1);--ac:#ff6b35;--ok:#4ade80;
+--serif:"Instrument Serif",Georgia,"Times New Roman",serif;--sans:Inter,ui-sans-serif,-apple-system,"Segoe UI",sans-serif;--mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+--pad:clamp(1.5rem,6vw,6rem);color-scheme:dark}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--bg);scroll-padding-top:6rem}
+html.lenis,html.lenis body{height:auto}.lenis.lenis-smooth{scroll-behavior:auto!important}.lenis.lenis-stopped{overflow:clip}
+body{background:var(--bg);color:var(--fg);font-family:var(--sans);font-size:1rem;line-height:1.6;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;overflow-x:clip}
+/* granulado sutil por cima de tudo: tira o aspecto "chapado" do fundo */
+body::after{content:"";position:fixed;inset:0;z-index:100;pointer-events:none;opacity:.07;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit}
+ul{list-style:none}
+::selection{background:var(--ac);color:#0a0a09}
+:focus-visible{outline:2px solid var(--ac);outline-offset:4px;border-radius:4px}
+.skip{position:fixed;left:1rem;top:-4rem;z-index:200;padding:.6rem 1rem;border-radius:99px;background:var(--fg);color:#000;transition:top .2s}.skip:focus{top:1rem}
+h1,h2,h3,h4{font-family:var(--serif);font-weight:400;letter-spacing:-.02em;text-wrap:balance}
+i{font-style:italic;color:var(--t2)}
+.lbl{font:400 .7rem/1.4 var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--t3)}
+.c{display:block;text-align:center;margin-bottom:4rem}
+section,footer{position:relative;border-top:1px solid var(--ln);padding:clamp(6rem,13vw,11rem) var(--pad)}
+.wrap{max-width:80rem;margin:0 auto}
+.glow{position:absolute;pointer-events:none;border-radius:50%;background:radial-gradient(closest-side,color-mix(in srgb,var(--ac) 11%,transparent),transparent)}
+#pg{position:fixed;top:0;left:0;right:0;height:2px;z-index:70;background:var(--ac);transform:scaleX(0);transform-origin:0 50%}
+
+/* ===== header em pílula ===== */
+#hd{position:fixed;top:calc(1rem + env(safe-area-inset-top,0px));left:0;right:0;z-index:60;display:flex;flex-direction:column;align-items:center;padding:0 1rem;pointer-events:none}
+#pill,#mm{pointer-events:auto;width:100%;max-width:896px;border:1px solid var(--ln);background:rgba(14,14,13,.66);-webkit-backdrop-filter:blur(24px) saturate(1.4);backdrop-filter:blur(24px) saturate(1.4)}
+#pill{height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 .5rem 0 1.5rem;border-radius:100px;white-space:nowrap;overflow:hidden}
+#pill .logo{font:400 1.35rem var(--serif);letter-spacing:-.01em}
+#pill nav{display:flex;gap:2rem;font-size:.875rem;color:var(--t2)}
+#pill nav a{transition:color .3s}#pill nav a:hover{color:var(--fg)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;padding:.65rem 1.4rem;border-radius:99px;border:1px solid transparent;background:var(--fg);color:#0a0a09;font-weight:500;font-size:.875rem;cursor:pointer;transition:background .4s,color .4s,border-color .4s}
+.btn:hover{background:var(--ac)}
+.btn.big{padding:1rem 1.9rem;font-size:1rem}
+.btn.ghost{background:transparent;color:var(--fg);border-color:rgba(241,238,232,.2)}
+.btn.ghost:hover{border-color:var(--ac);color:var(--ac)}
+#mb{display:none;position:relative;width:44px;height:44px;border-radius:50%;border:1px solid var(--ln);background:none;cursor:pointer}
+#mb span{position:absolute;left:13px;right:13px;height:1px;background:var(--fg);transition:transform .3s}
+#mb span:first-child{top:18px}#mb span:last-child{top:25px}
+#mb[aria-expanded=true] span:first-child{transform:translateY(3.5px) rotate(45deg)}
+#mb[aria-expanded=true] span:last-child{transform:translateY(-3.5px) rotate(-45deg)}
+#mm{display:flex;flex-direction:column;margin-top:.5rem;padding:.5rem 1.5rem 1rem;border-radius:1.5rem}
+#mm[hidden]{display:none}
+#mm a{padding:.9rem 0;font:400 1.75rem var(--serif);border-bottom:1px solid var(--ln)}#mm a:last-child{border:0}
+@media(max-width:767px){#pill{padding-left:1.25rem}#pill nav,#pill .btn{display:none}#mb{display:block}}
+
+/* ===== hero ===== */
+#top{min-height:100vh;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;overflow:hidden;border:0;padding-top:8rem;padding-bottom:7rem}
+.field{position:absolute;inset:-3rem;pointer-events:none;opacity:.6;background:radial-gradient(circle at 50% 45%,color-mix(in srgb,var(--ac) 16%,transparent),#0000 38%),repeating-radial-gradient(circle at 50% 45%,#ffffff17 0 1px,#0000 1px 8px),linear-gradient(135deg,#0000 15%,rgba(241,238,232,.05) 50%,#0000 85%);-webkit-mask-image:radial-gradient(#000 5%,#0000 72%);mask-image:radial-gradient(#000 5%,#0000 72%)}
+.hero{position:relative;z-index:2;width:100%}
+.badge{display:inline-flex;align-items:center;gap:.6rem;margin-bottom:2.5rem;padding:.45rem 1rem .45rem .8rem;border:1px solid var(--ln);border-radius:99px;background:rgba(241,238,232,.03);font-size:.8rem;color:var(--t2)}
+.dot{position:relative;width:7px;height:7px;border-radius:50%;background:var(--ok)}
+.dot::after{content:"";position:absolute;inset:0;border-radius:50%;background:var(--ok);animation:ping 2.2s ease-out infinite}
+@keyframes ping{to{transform:scale(3.4);opacity:0}}
+h1{font-size:clamp(3.4rem,11.5vw,10.5rem);line-height:.9;letter-spacing:-.035em}
+.ln{display:block;overflow:hidden;padding-bottom:.16em;margin-bottom:-.16em}.ln>span{display:block}
+.sub{max-width:40rem;margin:2.5rem auto 0;font-size:clamp(1.05rem,1.7vw,1.3rem);font-weight:300;color:var(--t2);text-wrap:pretty}
+.sub b{font-weight:400;color:var(--fg)}
+.cta-row{display:flex;flex-wrap:wrap;justify-content:center;gap:.75rem;margin-top:2.5rem}
+.hbar{position:absolute;left:var(--pad);right:var(--pad);bottom:2rem;z-index:2;display:flex;justify-content:space-between;gap:1rem;padding-top:1.25rem;border-top:1px solid var(--ln)}
+.hbar span:nth-child(2){display:flex;align-items:center;gap:.6rem}
+.hbar span:nth-child(2)::before{content:"";width:1px;height:1.6rem;background:linear-gradient(var(--fg),transparent);animation:drop 2s ease-in-out infinite;transform-origin:top}
+@keyframes drop{0%{transform:scaleY(0)}50%{transform:scaleY(1)}100%{transform:scaleY(1);opacity:0}}
+@media(max-width:767px){.hbar span:nth-child(2){display:none}}
+
+/* ===== marquee ===== */
+.mq{padding:4rem 0;overflow:hidden}
+.mq::before,.mq::after{content:"";position:absolute;top:0;bottom:0;width:clamp(6rem,20vw,20rem);z-index:2;pointer-events:none}
+.mq::before{left:0;background:linear-gradient(90deg,var(--bg),transparent)}.mq::after{right:0;background:linear-gradient(270deg,var(--bg),transparent)}
+.mq .c{margin-bottom:2.5rem}
+.track{display:flex;align-items:center;width:max-content;will-change:transform}
+.track span{display:flex;align-items:center;font:400 clamp(1.75rem,3.2vw,2.6rem) var(--serif);color:var(--t3);transition:color .5s;cursor:default}
+.track span::after{content:"";width:5px;height:5px;margin:0 clamp(1.5rem,4vw,3.5rem);border-radius:50%;background:var(--ac);opacity:.7}
+.track span:hover{color:var(--fg)}
+
+/* ===== cabeçalho de seção ===== */
+.head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:1.5rem;margin-bottom:clamp(3rem,7vw,6rem)}
+.head h2{font-size:clamp(3.25rem,9vw,7rem);line-height:.92;letter-spacing:-.035em}
+.head .lbl{display:block;margin-bottom:1.5rem}
+.head p{max-width:24rem;color:var(--t2);font-size:1.0625rem}
+
+/* ===== lista de projetos ===== */
+.th{display:flex;gap:1rem;padding:0 1rem 1rem;border-bottom:1px solid rgba(241,238,232,.22)}
+.id,.yr{width:4rem}.yr{text-align:right}.rl{width:33%}
+.row{display:flex;align-items:center;gap:1rem;padding:clamp(1.5rem,3vw,2.75rem) 1rem;border-bottom:1px solid var(--ln);position:relative;overflow:hidden}
+.row::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,color-mix(in srgb,var(--ac) 7%,transparent),transparent);transform:translateY(101%);transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+.row:hover::before{transform:none}.row>*{position:relative}
+.row .id{font:400 .8rem var(--mono);color:var(--t3)}
+.row h3{flex:1;font-size:clamp(2.1rem,6vw,4.25rem);line-height:1;color:var(--t2);transition:transform .5s cubic-bezier(.2,.8,.2,1),color .5s}
+.row:hover h3{transform:translateX(1rem);color:var(--fg)}
+.row .rl{font-weight:300;color:var(--t2)}
+.row .yr{font:400 .8rem var(--mono);color:var(--t2)}
+.row .yr::after{content:" ↓";color:var(--ac);opacity:0;transition:opacity .3s}.row:hover .yr::after{opacity:1}
+@media(max-width:767px){.rl{display:none}}
+
+/* ===== estudos de caso ===== */
+.case{display:grid;gap:3rem;padding-top:clamp(5rem,10vw,9rem)}.case>*{min-width:0}
+@media(min-width:960px){.case{grid-template-columns:5fr 7fr;gap:5rem;align-items:start}.case .media{position:sticky;top:6.5rem}}
+@media(max-width:959px){.case .media{order:-1}}
+.case h3{margin-top:1rem;font-size:clamp(2.75rem,5.5vw,4.5rem);line-height:.95;letter-spacing:-.03em}
+.sum{margin-top:1.5rem;max-width:34rem;color:var(--t2);font-size:1.125rem;text-wrap:pretty}
+.meta{display:flex;flex-wrap:wrap;gap:1.25rem 2.5rem;margin-top:2rem}
+.meta dt{margin-bottom:.3rem}.meta dd{font-size:.95rem}
+.blk{margin-top:2.5rem;max-width:34rem}
+.blk>.lbl{margin-bottom:.9rem}
+.blk>p:not(.lbl){color:var(--t2)}
+.blk li{position:relative;padding:.35rem 0 .35rem 1.5rem;color:var(--t2)}
+.blk li::before{content:"";position:absolute;left:0;top:1.05em;width:.7rem;height:1px;background:var(--ac)}
+.tools div{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.25rem 1.5rem;padding:.8rem 0;border-top:1px solid var(--ln);font-size:.95rem}
+.tools div:last-child{border-bottom:1px solid var(--ln)}
+.tools dd{color:var(--t2);text-align:right}
+.flow{counter-reset:passo}.blk .flow li{counter-increment:passo;display:grid;grid-template-columns:2.25rem 1fr;gap:.1rem .5rem;padding:.6rem 0}
+.blk .flow li::before{content:counter(passo,decimal-leading-zero);position:static;width:auto;height:auto;grid-row:span 2;background:none;font:400 .7rem/1.9 var(--mono);color:var(--ac)}
+.blk .flow li:not(:last-child)::after{content:"";position:absolute;left:.55rem;top:2.3rem;bottom:-.4rem;width:1px;background:var(--ln)}
+.flow b{font:400 .85rem/1.6 var(--mono);color:var(--fg)}.flow span{font-size:.95rem}
+.dec>div{padding:1.1rem 0;border-top:1px solid var(--ln)}.dec>div:last-child{border-bottom:1px solid var(--ln)}
+.dec h4{margin-bottom:.35rem;font:500 1rem/1.4 var(--sans);letter-spacing:0;color:var(--fg)}
+.dec p{font-size:.95rem;color:var(--t2)}
+.stack{display:flex;flex-wrap:wrap;gap:.5rem}
+.blk .stack li{padding:.3rem .75rem;border:1px solid var(--ln);border-radius:99px;font:400 .72rem/1.6 var(--mono);color:var(--t2)}
+.blk .stack li::before{content:none}
+.links{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:2.5rem}
+.frame{border:1px solid var(--ln);border-radius:1rem;overflow:hidden;background:var(--bg2);box-shadow:0 40px 80px -40px #000,0 0 0 1px rgba(255,255,255,.02) inset}
+.bar{display:flex;align-items:center;gap:1rem;height:2.4rem;padding:0 1rem;border-bottom:1px solid var(--ln);font:400 .68rem var(--mono);letter-spacing:.06em;color:var(--t3)}
+.bar::before{content:"";flex:none;width:6px;height:6px;margin-right:24px;border-radius:50%;background:var(--t3);box-shadow:12px 0 var(--t3),24px 0 var(--t3)}
+.bar b{font-weight:400;margin-left:auto}
+.stage{aspect-ratio:16/9;display:block;width:100%;padding:0;border:0;background:none;cursor:zoom-in}
+.stage:disabled{cursor:default}
+.stage:not(:disabled)::after{content:"Clique para ampliar";position:absolute;right:.75rem;bottom:.75rem;padding:.35rem .75rem;border-radius:99px;background:rgba(10,10,9,.78);font:400 .65rem var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--fg);opacity:0;transition:opacity .3s}
+.stage{position:relative}.stage:hover::after,.stage:focus-visible::after{opacity:1}
+#zoom{margin:auto;width:min(1400px,96vw);max-width:none;padding:0;border:0;background:none;color:var(--fg)}
+#zoom::backdrop{background:rgba(10,10,9,.9);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+#zoom img{display:block;width:100%;height:auto;max-height:82vh;object-fit:contain;border:1px solid var(--ln);border-radius:.75rem}
+.zb{display:flex;align-items:center;gap:.5rem;margin-top:1rem}.zb span{flex:1;text-align:center}
+.zb .lk{min-width:44px;min-height:44px;justify-content:center}
+.cc #zoom,.cc #zoom *{cursor:auto!important}.cc #zoom button{cursor:pointer!important}
+.thumbs{display:grid;grid-template-columns:repeat(4,1fr);gap:.75rem;margin-top:.75rem}
+.thumbs button{display:block;padding:0;background:none;cursor:pointer;aspect-ratio:16/10;border:1px solid var(--ln);border-radius:.5rem;overflow:hidden;opacity:.45;transition:opacity .3s,border-color .3s}
+.thumbs button:hover{opacity:1}.thumbs button.on{opacity:1;border-color:var(--ac)}
+.stage>*,.thumbs button>*{display:block;width:100%;height:100%}
+.stage img,.thumbs img{object-fit:cover;object-position:top}
+.stage video{object-fit:contain;background:#0d0d0f}
+
+/* ===== sobre ===== */
+.about{display:grid;gap:3rem}.about>*{min-width:0}
+@media(min-width:960px){.about{grid-template-columns:4fr 8fr;gap:5rem;align-items:start}}
+.pic{position:relative;aspect-ratio:4/5;max-width:24rem;border:1px solid var(--ln);border-radius:1rem;overflow:hidden;background:radial-gradient(circle at 30% 20%,color-mix(in srgb,var(--ac) 22%,transparent),transparent 60%),var(--bg2);display:grid;place-items:center}
+.pic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.05);transition:filter .6s}
+.pic:hover img{filter:none}
+.pic span{font:400 clamp(4rem,9vw,7rem) var(--serif);color:var(--t3)}
+.pic small{position:absolute;left:1rem;bottom:1rem}
+.bio p{max-width:44rem;font:400 clamp(1.5rem,2.6vw,2.25rem)/1.25 var(--serif);letter-spacing:-.01em;text-wrap:pretty}
+.bio p+p{margin-top:1.5rem;font:300 1.0625rem/1.7 var(--sans);letter-spacing:0;color:var(--t2);max-width:38rem}
+.bio .links{margin-top:2rem}
+.skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(13rem,1fr));gap:2rem;margin-top:clamp(4rem,8vw,7rem);padding-top:2.5rem;border-top:1px solid var(--ln)}
+@media(min-width:960px){.skills{grid-template-columns:repeat(4,1fr)}}
+.skills h4{margin:.75rem 0 .5rem;font-size:1.75rem}
+.skills p:last-child{color:var(--t2);font-size:.95rem}
+.xp{margin-top:clamp(4rem,8vw,7rem)}
+.xp>.lbl{margin-bottom:1.25rem}
+.xp li{display:grid;gap:.5rem 2rem;padding:1.75rem 0;border-top:1px solid var(--ln)}
+.xp li:last-child{border-bottom:1px solid var(--ln)}
+@media(min-width:768px){.xp li{grid-template-columns:11rem 1fr 1.4fr;align-items:baseline}}
+.xp time{font:400 .8rem var(--mono);color:var(--t3)}
+.xp h4{font-size:1.75rem;line-height:1.1}.xp h4 small{display:block;margin-top:.3rem;font:400 .9rem var(--sans);letter-spacing:0;color:var(--t2)}
+.xp li p{color:var(--t2);font-size:.95rem}
+
+/* ===== números ===== */
+.st{padding-block:clamp(4rem,8vw,6rem)}
+.st .wrap{display:grid;grid-template-columns:repeat(2,1fr);gap:3rem 2rem}
+@media(min-width:768px){.st .wrap{grid-template-columns:repeat(4,1fr)}.st .wrap>div+div{padding-left:2rem;border-left:1px solid var(--ln)}}
+.st h4{font-size:clamp(3rem,6vw,5rem);line-height:1;font-variant-numeric:tabular-nums}
+.st small{font-size:.5em;color:var(--ac)}.st .lbl{margin-top:.9rem}
+
+/* ===== contato ===== */
+footer{overflow:hidden}
+.cta{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:3rem}
+.cta h2{font-size:clamp(3.5rem,11.5vw,10.5rem);line-height:.86;letter-spacing:-.045em}
+.orb{position:relative;display:grid;place-items:center;width:clamp(9rem,14vw,12rem);aspect-ratio:1;border-radius:50%;background:var(--fg);color:#0a0a09;font-weight:500;font-size:1.0625rem;overflow:hidden;transition:color .5s}
+.orb::before{content:"";position:absolute;inset:0;background:var(--ac);border-radius:50%;transform:scale(0);transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+.orb:hover::before{transform:none}.orb span{position:relative}
+.mail{display:flex;flex-wrap:wrap;align-items:center;gap:1rem 1.5rem;margin-top:clamp(3rem,6vw,5rem);position:relative}
+.mail a{font:400 clamp(1.5rem,3.4vw,2.75rem) var(--serif);border-bottom:1px solid var(--ln);transition:border-color .3s,color .3s;overflow-wrap:anywhere}
+.mail a:hover{color:var(--ac);border-color:var(--ac)}
+.mail a.lk{font:400 .875rem var(--sans);border:1px solid var(--ln);color:var(--t2)}
+.mail a.lk:hover{color:var(--fg);border-color:rgba(241,238,232,.4)}
+.lk{display:inline-flex;align-items:center;gap:.4rem;padding:.55rem 1.1rem;border:1px solid var(--ln);border-radius:99px;background:none;font-size:.875rem;color:var(--t2);cursor:pointer;transition:color .3s,border-color .3s}
+.lk:hover{color:var(--fg);border-color:rgba(241,238,232,.4)}
+.ft{display:flex;flex-wrap:wrap;justify-content:space-between;gap:1rem 2rem;margin-top:clamp(4rem,8vw,6rem);padding-top:2rem;border-top:1px solid var(--ln);position:relative}
+.ft nav{display:flex;flex-wrap:wrap;gap:1.5rem}
+.ft a{transition:color .3s}.ft a:hover{color:var(--fg)}
+
+#cur{position:fixed;left:0;top:0;width:14px;height:14px;border-radius:50%;background:#fff;mix-blend-mode:difference;pointer-events:none;z-index:999;opacity:0}
+@media(pointer:coarse){#cur{display:none}}
+.cc,.cc *{cursor:none!important}
+@media(prefers-reduced-motion:reduce){.dot::after,.hbar span::before{animation:none}}
+/* fundo vivo: céu de caracteres + rastro ASCII do cursor (desenhado no canvas #bgfx) */
+#bgfx{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+@media print{#bgfx{display:none}}
+</style>
+</head>
+<body>
+<a class="skip" href="#work">Pular para os projetos</a>
+<canvas id="bgfx" aria-hidden="true"></canvas>
+<div id="pg"></div><div id="cur"></div>
+
+<header id="hd">
+  <div id="pill">
+    <a class="logo" href="#top" data-me="nome">Lucas Araújo</a>
+    <nav aria-label="Principal"><a href="#work">Projetos</a><a href="#about">Sobre</a><a href="#xp">Experiência</a><a href="#contact">Contato</a></nav>
+    <a class="btn" href="#contact">Fale comigo</a>
+    <button id="mb" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="mm"><span></span><span></span></button>
+  </div>
+  <nav id="mm" aria-label="Menu" hidden><a href="#work">Projetos</a><a href="#about">Sobre</a><a href="#xp">Experiência</a><a href="#contact">Contato</a></nav>
+</header>
+
+<main>
+<section id="top">
+  <div class="field"></div>
+  <div class="hero">
+    <p class="badge fade"><span class="dot"></span><span data-me="status">Disponível para novas oportunidades</span></p>
+    <h1><span class="ln"><span>Eu construo</span></span><span class="ln"><span><i>sistemas</i> completos.</span></span></h1>
+    <p class="sub fade"><b data-me="nome">Lucas Araújo</b> — <span data-me="cargo">desenvolvedor full stack (Python e React)</span>. Há mais de 3 anos construo sistemas que rodam em produção: monitoramento com filas e alertas, um catálogo com pedidos e frete pela distância e uma plataforma de gestão.</p>
+    <div class="cta-row fade"><a class="btn big" href="#work">Ver projetos</a><a class="btn big ghost" id="cv1" href="#contact">Contato</a></div>
+  </div>
+  <div class="hbar lbl fade"><span data-me="local">Natal, RN, Brasil</span><span>Role para ver</span><span id="clock">—</span></div>
+</section>
+
+<section class="mq" aria-label="Ferramentas"><span class="lbl c">Ferramentas com que trabalho</span><div class="track"></div></section>
+
+<section id="work"><div class="wrap">
+  <div class="head"><div><span class="lbl rv">01 — Trabalhos</span><h2 class="rv">Projetos<br><i>selecionados.</i></h2></div><p class="rv">Sistemas em produção e um app de código aberto: monitoramento de usinas, um catálogo com pedidos e frete pela distância, um app para aprender inglês com filmes e uma plataforma de gestão. Veja a arquitetura e as decisões técnicas de cada um.</p></div>
+  <div class="th lbl"><span class="id">Nº</span><span style="flex:1">Projeto</span><span class="rl">Tipo</span><span class="yr">Ano</span></div>
+  <div id="list"></div>
+  <div id="cases"></div>
+</div></section>
+
+<section id="about"><div class="wrap">
+  <div class="head"><div><span class="lbl rv">02 — Sobre</span><h2 class="rv">Sobre<br><i>mim.</i></h2></div></div>
+  <div class="about">
+    <div class="pic rv" id="pic"></div>
+    <div class="bio rv" id="bio"></div>
+  </div>
+  <div class="skills" id="skills"></div>
+  <div class="xp" id="xp"><p class="lbl">Experiência e formação</p><ul></ul></div>
+</div></section>
+
+<section class="st" aria-label="Números"><div class="wrap" id="stats"></div></section>
+</main>
+
+<footer id="contact">
+  <div class="glow" style="width:100vw;height:25rem;left:0;bottom:-8rem"></div>
+  <div class="wrap">
+    <span class="lbl rv" style="display:block;margin-bottom:2rem">03 — Contato</span>
+    <div class="cta"><h2 class="rv">Procurando um dev<br><i>para o time?</i></h2><a class="orb" data-mail href="mailto:araujo.dev996@gmail.com"><span>Fale comigo</span></a></div>
+    <div class="mail rv"><a data-mail data-me="email" href="mailto:araujo.dev996@gmail.com">araujo.dev996@gmail.com</a><button class="lk" id="copy" type="button">Copiar e-mail</button><a class="lk" id="cv2" href="cv/Lucas_Araujo_CV_Full_Stack.pdf" download>Baixar CV (PDF) ↓</a></div>
+    <div class="ft lbl"><span>© <span id="yr">2026</span> <span data-me="nome">Lucas Araújo</span></span><nav id="social" aria-label="Redes"></nav><a href="#top">Voltar ao topo ↑</a></div>
+  </div>
+</footer>
+
+<dialog id="zoom" aria-label="Tela ampliada">
+  <img src="" alt="">
+  <div class="zb"><button type="button" class="lk" id="zp" aria-label="Tela anterior">←</button><span class="lbl" id="zc"></span><button type="button" class="lk" id="zn" aria-label="Próxima tela">→</button><button type="button" class="lk" id="zx" aria-label="Fechar">✕</button></div>
+</dialog>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.3.23/dist/lenis.min.js"></script>
+<script>
+/* =====================================================================
+   CONTEÚDO EDITÁVEL — tudo que é seu fica neste bloco.
+   ===================================================================== */
+const ME={
+  nome:'Lucas Araújo',
+  cargo:'desenvolvedor full stack (Python e React)',
+  local:'Natal, RN, Brasil',
+  fuso:'America/Fortaleza',            // usado no relógio do hero
+  email:'araujo.dev996@gmail.com',
+  status:'Disponível para novas oportunidades',
+  foto:'img/lucas-araujo.webp',        // vertical, 4:5. Vazio = iniciais
+  cv:'cv/Lucas_Araujo_CV_Full_Stack.pdf', // vazio = botão vira "Contato"
+  links:[['LinkedIn','https://www.linkedin.com/in/lucas-ara%C3%BAjo-7792082a3'],['GitHub','https://github.com/Araujo96'],['WhatsApp','https://wa.me/5584996060967']],
+  // 1º parágrafo aparece grande; os seguintes, em texto normal
+  bio:['Sou desenvolvedor na Ejb Engenharia Solar e Elétrica, onde cuido do desenvolvimento dos sistemas da empresa e de clientes, do banco de dados ao deploy.',
+       'Antes, na Intersoftware, trabalhei em um sistema de gestão clínica em produção, evoluindo código legado e integrações. Sou formado em Análise e Desenvolvimento de Sistemas pela UFRN.',
+       'Fora do trabalho, criei o legenDay, um player para aprender inglês com filmes, porque parar o filme para procurar cada palavra quebrava o ritmo. É de código aberto, com testes e build automático.']
+};
+const TOOLS=['Python','Django','FastAPI','React','PostgreSQL','Redis','Celery','Docker','CI/CD','Tailwind','PySide6 (Qt)','pytest'];
+const SKILLS=[ // "Como trabalho": [prática, exemplo real nos projetos]
+  ['Testo antes de mexer','No catálogo, escrevi testes sobre o sistema já em produção antes de qualquer melhoria, e eles acharam 4 bugs que afetavam clientes. O legenDay tem 125 testes, inclusive de interface.'],
+  ['Conto com a falha','Serviço externo cai. No monitoramento, a chamada que falha volta para a fila com retentativa; no catálogo, se o mapa falha, o pedido segue com frete a combinar.'],
+  ['Respeito os limites de quem integro','Controle de taxa para as 90 chamadas/min da API dos inversores; cache de 30 dias e limite por IP para o serviço de mapas.'],
+  ['Acompanho o que vai para produção','Docker e CI/CD no deploy, alertas por e-mail e WhatsApp e um painel que mostra a saúde do próprio coletor de dados.']
+];
+const XP=[ // [período, cargo, empresa, o que você fez] — mais recente primeiro
+  ['mar. 2024 — Hoje','Desenvolvedor Full Stack','Ejb Engenharia Solar e Elétrica · Natal','Desenvolvo os sistemas da empresa e de clientes, do banco de dados ao deploy: o monitoramento de usinas fotovoltaicas (FastAPI, Celery, Redis, React), a plataforma de gestão interna e o catálogo com pedidos da SetPoint (Django). Docker e CI/CD no deploy.'],
+  ['ago. 2022 — mai. 2023','Desenvolvedor Full Stack','Intersoftware · Natal','Desenvolvi módulos de prontuário eletrônico, faturamento, convênios e financeiro de um sistema de gestão clínica em Django, integrei mensagens via Twilio e evoluí código legado com monitoramento no Sentry.'],
+  ['fev. 2018 — ago. 2022','Análise e Desenvolvimento de Sistemas','UFRN · Universidade Federal do Rio Grande do Norte','Graduação em tecnologia com base em programação, banco de dados, engenharia de software e redes.']
+];
+const STATS=[ // [número, sufixo, legenda] — use apenas números reais · vazio = a seção some
+  // [800,'+','Usinas monitoradas'],[40,'+','Usuários na plataforma de gestão'],[3,'+','Anos de experiência'],[15,' min','Para detectar uma falha']
+];
+const WORKS=[ // [nº, projeto, tipo, ano, cor da tela de exemplo]
+  ['01','Monitor de Usinas','Monitoramento em tempo real','2025','#0ea5e9'],
+  ['02','Catálogo SetPoint','Catálogo e pedidos online','2026','#f7c600'],
+  ['03','legenDay','App desktop de código aberto','2026','#ffd54a'],
+  ['04','Gestão Solar','Sistema de gestão','2025','#3b82f6']
+];
+// Um item por linha de WORKS, na mesma ordem.
+// f = seu papel · s = resumo · d = desafio · r = o que entregou · t = ferramentas [nome, para que usou]
+// g = telas ['legenda','caminho/da/imagem.png'] (null = tela de exemplo) · l = links (vazio = não aparece)
+const PROJECTS=[
+  {n:'Monitor de Usinas',f:'Design e desenvolvimento full stack',
+   s:'Plataforma que monitora uma frota de mais de 800 usinas fotovoltaicas: coleta o status de cada uma a cada 15 minutos, mede geração e disponibilidade e avisa a equipe por e-mail e WhatsApp quando uma usina falha.',
+   d:'Com centenas de usinas espalhadas, uma falha podia passar dias sem ser notada e virar perda de geração. Era preciso coletar tudo automaticamente sem estourar o limite da API do fabricante, detectar falhas na hora e transformar os dados em relatórios prontos para o cliente.',
+   r:['Alertas por e-mail e WhatsApp quando uma usina entra em erro, fica offline ou volta a operar: falha detectada em até 15 min',
+      'Cálculo de geração, disponibilidade e tempo médio de recuperação na API',
+      'Painel em React com KPIs da frota, histórico de incidentes e leitura elétrica dos inversores (tensões, MPPT, temperatura)',
+      'Relatório executivo em PDF e CSV, enviado automaticamente todo dia às 7h',
+      'Docker Compose com API, workers e banco; CI/CD com pytest, build das imagens e deploy'],
+   a:['Arquitetura',[['Celery Beat','Agenda as coletas: status a cada 15 min, inversores a cada 4 h'],
+      ['Workers Celery','Consultam a API Solplanet Pro, com retentativas automáticas'],
+      ['Redis','Fila de tarefas, cache e controle do limite de 90 chamadas/min'],
+      ['PostgreSQL','Histórico de status, geração, incidentes e coletas'],
+      ['FastAPI','Regras de status, disponibilidade e relatórios'],
+      ['React · SMTP · WhatsApp','Painel da equipe e alertas críticos']]],
+   x:[['Coletar 800 usinas sem estourar a API','A API do fabricante aceita 90 chamadas por minuto. O controle de taxa fica no Redis, então todos os workers respeitam o mesmo limite, e uma chamada que falha volta para a fila com retentativa em vez de se perder.'],
+      ['Duas frequências de coleta','O status decide os alertas e muda rápido, por isso sai a cada 15 min: cerca de 53 chamadas/min para a frota inteira, dentro do limite. Os dados técnicos dos inversores mudam pouco e vêm a cada 4 h.'],
+      ['Alertar na mudança, não no estado','O alerta dispara quando a usina muda de estado: entra em erro, fica offline ou volta ao normal. Uma usina parada não gera uma mensagem a cada coleta, e a equipe também sabe quando o problema foi resolvido.'],
+      ['Monitorar o monitor','Cada coleta fica registrada no painel de operações. Se o próprio coletor falhar, isso aparece para a equipe em vez de virar um silêncio que parece "tudo certo".']],
+   t:[['Python + FastAPI','API REST, regras de status e cálculo de disponibilidade'],
+      ['Celery + Celery Beat','Coletas agendadas, tarefas em segundo plano e retentativas'],
+      ['Redis','Fila de tarefas, cache e controle de limite de chamadas à API'],
+      ['PostgreSQL','Histórico de status, geração, incidentes e coletas'],
+      ['SQLite','Ambiente local e testes'],
+      ['React','Painel web, gráficos e relatórios'],
+      ['E-mail (SMTP) + WhatsApp','Alertas críticos e relatório diário'],
+      ['API Solplanet Pro','Integração com inversores e coletores'],
+      ['Docker + Docker Compose','Ambiente padronizado e deploy da API, workers e banco']],
+   // ['legenda','imagem grande','miniatura'] — a 1ª é a que aparece primeiro
+   g:[['Visão geral da frota','img/monitor-usinas/visao-geral.webp','img/monitor-usinas/visao-geral-thumb.webp'],
+      ['Detalhe da usina e inversores','img/monitor-usinas/usina-detalhe.webp','img/monitor-usinas/usina-detalhe-thumb.webp'],
+      ['Usinas com problema','img/monitor-usinas/usinas-com-problema.webp','img/monitor-usinas/usinas-com-problema-thumb.webp'],
+      ['Operações e coletas','img/monitor-usinas/operacoes.webp','img/monitor-usinas/operacoes-thumb.webp'],
+      ['Relatório executivo','img/monitor-usinas/relatorio.webp','img/monitor-usinas/relatorio-thumb.webp'],
+      ['Gráficos do relatório','img/monitor-usinas/relatorio-graficos.webp','img/monitor-usinas/relatorio-graficos-thumb.webp'],
+      ['Tema escuro','img/monitor-usinas/visao-geral-escuro.webp','img/monitor-usinas/visao-geral-escuro-thumb.webp'],
+      ['Login','img/monitor-usinas/login.webp','img/monitor-usinas/login-thumb.webp']],
+   l:[['Ver ao vivo',''],['Código','']]},
+  {n:'Catálogo SetPoint',f:'Desenvolvimento full stack',
+   s:'Catálogo online de uma loja de conveniência com mais de 500 produtos. O cliente monta o carrinho, escolhe retirada ou entrega e envia o pedido pronto para o WhatsApp da loja, com o frete calculado pela distância real até o endereço.',
+   d:'Os clientes pedem pelo celular e pelo WhatsApp. O desafio era um catálogo rápido no celular que calculasse o frete sozinho, usando serviços de mapa gratuitos, sem que uma falha desses serviços impedisse alguém de fazer o pedido.',
+   r:['Catálogo com mais de 500 produtos: busca, categorias com contagem e paginação no servidor',
+      'Carrinho salvo no navegador e pedido formatado enviado ao WhatsApp da loja',
+      'Relatório no admin: produtos mais vendidos, bairros e formas de pagamento por período',
+      'Fotos dos produtos convertidas para WebP e reduzidas no upload',
+      'Mais de 110 testes, incluindo testes de navegador com Playwright no celular e no desktop'],
+   a:['Arquitetura',[['Navegador','Templates Django e JavaScript puro; carrinho no localStorage'],
+      ['ViaCEP','Preenche rua, bairro e cidade a partir do CEP'],
+      ['Django · /frete/','Geocodifica no Nominatim, mede a rota no OSRM e aplica a faixa de preço'],
+      ['Cache do Django','Endereços já calculados por 30 dias e limite de consultas por IP'],
+      ['PostgreSQL','Produtos, categorias e pedidos'],
+      ['WhatsApp','Recebe o pedido pronto, com itens, endereço, frete e total']]],
+   x:[['Achar o endereço certo, não o primeiro','A busca no mapa prioriza uma área de cerca de 44 km em volta da loja e descarta resultados a mais de 40 km, o que resolve a rua com o mesmo nome em outra cidade. Se o endereço completo não é encontrado, tenta de novo sem o número.'],
+      ['O cliente nunca fica sem pedir','Se o serviço de rotas cai, a distância vira a linha reta × 1,3. Se nem o endereço é encontrado, o pedido segue com "frete a combinar". O registro do pedido é disparado sem esperar resposta: se falhar, o WhatsApp abre do mesmo jeito.'],
+      ['Proteger os serviços gratuitos','O Nominatim aceita 1 consulta por segundo e bloqueia quem abusa. Cada endereço fica 30 dias em cache e cada IP tem 20 consultas a cada 10 minutos, lendo o IP real do cliente que o proxy coloca no fim do X-Forwarded-For.'],
+      ['Relatório sem dados pessoais','O pedido é salvo só com itens, totais, forma de pagamento e bairro; nome e endereço vão apenas na mensagem do WhatsApp. Os preços gravados vêm do banco, nunca do navegador.'],
+      ['Testar antes de mexer em produção','Antes das melhorias, escrevi testes sobre o comportamento atual. Os testes de navegador encontraram 4 bugs que afetavam clientes, como o formulário de entrega que passava da tela em celulares pequenos.']],
+   t:[['Python + Django','Catálogo, frete, pedidos e admin'],
+      ['PostgreSQL','Produtos, categorias e pedidos'],
+      ['JavaScript','Carrinho, fluxo de entrega e envio ao WhatsApp'],
+      ['Nominatim + OSRM','Endereço → coordenadas → rota de carro'],
+      ['ViaCEP','Endereço a partir do CEP'],
+      ['Pillow','Fotos em WebP no upload'],
+      ['Django Admin + Jazzmin','Produtos, pedidos e relatório'],
+      ['Playwright + testes do Django','Mais de 110 testes, incluindo navegador'],
+      ['Gunicorn','Servidor da aplicação em produção']],
+   // ['legenda','imagem grande','miniatura'] — a 1ª é a que aparece primeiro
+   g:[['Catálogo no desktop','img/catalogo-setpoint/catalogo.webp','img/catalogo-setpoint/catalogo-thumb.webp'],
+      ['Entrega com frete pela distância','img/catalogo-setpoint/pedido-entrega.webp','img/catalogo-setpoint/pedido-entrega-thumb.webp'],
+      ['Catálogo no celular','img/catalogo-setpoint/celular.webp','img/catalogo-setpoint/celular-thumb.webp'],
+      ['Carrinho','img/catalogo-setpoint/carrinho.webp','img/catalogo-setpoint/carrinho-thumb.webp'],
+      ['Filtro por categoria','img/catalogo-setpoint/categoria.webp','img/catalogo-setpoint/categoria-thumb.webp']],
+   l:[['Ver ao vivo','https://catalogo-setpoint.ejb-engeletrica.com.br']]},
+  {n:'legenDay',f:'Ideia, design e desenvolvimento',
+   s:'Player de vídeo para aprender inglês com filmes e séries: você clica em qualquer palavra da legenda e vê na hora a tradução, a pronúncia e a fala inteira traduzida. As palavras salvas viram cartões de revisão com a cena do filme.',
+   d:'Assistir com legenda em português não ensina, e parar o filme para procurar cada palavra quebra o ritmo. Eu queria entender a palavra no contexto da fala, sem sair do vídeo, e depois revisar o que aprendi com o mesmo trecho do filme.',
+   r:['Legenda clicável: o vídeo pausa e mostra tradução, forma base, definição e a fala traduzida; Shift+clique pega expressões',
+      'Legenda dupla, de um arquivo .srt ou traduzida na hora',
+      'Revisão espaçada (método Leitner) que toca a cena original, com exportação para o Anki',
+      'Modo shadowing, pronúncia gravada por pessoas reais e sincronia da legenda salva por arquivo',
+      'Legendas embutidas em MKV/MP4 (ffmpeg) e .exe publicado automaticamente pelo GitHub Actions'],
+   a:['O que acontece num clique',[['PySide6 (Qt)','Captura o clique na palavra e pausa o vídeo no libmpv'],
+      ['simplemma','Encontra a forma base ("running" → "run")'],
+      ['Cache em SQLite','Se a palavra já foi traduzida, responde na hora'],
+      ['MyMemory · Free Dictionary','Senão, busca tradução e definição e grava no cache'],
+      ['Wikimedia Commons','Toca a pronúncia gravada por uma pessoa real']]],
+   x:[['Cache antes da API','As APIs gratuitas de tradução têm cota. Toda resposta fica em cache no SQLite, então a mesma palavra nunca é pedida duas vezes e o app continua útil quando a cota acaba.'],
+      ['Esconder a latência','Na legenda traduzida na hora, a próxima fala é traduzida enquanto a atual está na tela, para a tradução não chegar atrasada.'],
+      ['Não reinventar o player','Em vez de escrever um player, embuti o libmpv: ele resolve codecs, faixas de áudio e legendas, e o código do app fica focado no aprendizado.'],
+      ['Testar a interface também','O pytest-qt simula cliques e atalhos na janela real. Com 125 testes rodando no Windows e no Linux a cada push, todo .exe publicado já passou pela suíte.']],
+   t:[['Python + PySide6 (Qt)','Interface, atalhos e pop-ups'],
+      ['libmpv (python-mpv)','Player de vídeo embutido e áudio da pronúncia'],
+      ['pysubs2 + simplemma','Leitura de legendas e forma base das palavras'],
+      ['SQLite','Vocabulário, revisão e cache das traduções'],
+      ['MyMemory, Free Dictionary e Wikimedia Commons','Tradução, definições e pronúncia'],
+      ['ffmpeg','Extração de legendas embutidas'],
+      ['pytest + pytest-qt + ruff','Testes da lógica e da interface, e lint'],
+      ['PyInstaller + GitHub Actions','CI no Windows e no Linux e release automático do .exe']],
+   // vídeo: ['legenda','arquivo.mp4','miniatura','imagem para a tela ampliada']
+   g:[['Vídeo de demonstração','img/legenday/demo.mp4','img/legenday/capa-thumb.webp','img/legenday/capa.webp'],
+      ['Clique numa palavra','img/legenday/traducao-palavra.webp','img/legenday/traducao-palavra-thumb.webp'],
+      ['Tradução de expressões','img/legenday/expressao.webp','img/legenday/expressao-thumb.webp'],
+      ['Legenda dupla','img/legenday/legenda-dupla.webp','img/legenday/legenda-dupla-thumb.webp'],
+      ['Modo repetir frase','img/legenday/modo-repetir.webp','img/legenday/modo-repetir-thumb.webp'],
+      ['Revisão espaçada','img/legenday/revisao.webp','img/legenday/revisao-thumb.webp'],
+      ['Vocabulário','img/legenday/vocabulario.webp','img/legenday/vocabulario-thumb.webp']],
+   l:[['Código no GitHub','https://github.com/Araujo96/legenday']],
+   c:'Cenas do filme aberto <a href="https://mango.blender.org" target="_blank" rel="noopener"><i>Tears of Steel</i></a> (© Blender Foundation, CC BY 3.0).'},
+  {n:'Gestão Solar',f:'Design e desenvolvimento full stack',
+   s:'Sistema web usado por mais de 40 profissionais que reúne a operação de uma empresa de energia solar em um só lugar: vendas, clientes, caixa, estoque, equipe e agenda de instalações.',
+   d:'A operação ficava espalhada entre ferramentas diferentes. O objetivo era dar à equipe uma visão única, do primeiro contato com o cliente até a instalação concluída.',
+   r:['Painel financeiro com KPIs do mês, faturamento × orçamento e relatório executivo em PDF',
+      'Estoque com montagem de kit para obra e histórico de cada retirada',
+      'Geração automática de contratos a partir dos dados da venda',
+      'Agenda de instalações com obras de vários dias, equipe e veículos',
+      'Ranking de vendas com metas mensais por vendedor'],
+   // a = [título, [[peça, papel], ...]] · x = decisões técnicas [[título, explicação], ...]
+   a:['Arquitetura',[['Navegador','Templates Django + Tailwind e JavaScript, gráficos em Chart.js e agenda em FullCalendar'],
+      ['Django','Regras de negócio, autenticação e geração de PDFs e contratos'],
+      ['Django REST Framework','APIs REST e integrações com sistemas externos'],
+      ['PostgreSQL','Clientes, vendas, caixa, estoque e agenda no mesmo banco']]],
+   x:[['Um só modelo de dados para a operação inteira','O problema era a informação espalhada entre ferramentas. Com cliente, venda, caixa, estoque e obra no mesmo banco relacional, um relatório cruza tudo com uma consulta, sem planilha intermediária.'],
+      ['Renderização no servidor em vez de SPA','Templates Django com Tailwind e JavaScript pontual: menos peças para manter e deploy simples, sem abrir mão de gráficos e agenda interativos.'],
+      ['API separada para integrações','As integrações com sistemas externos passam por endpoints do Django REST Framework, isolando o que é contrato com terceiros das telas internas.']],
+   t:[['Python + Django','Back-end, regras de negócio e login'],['PostgreSQL','Clientes, vendas, caixa e estoque'],['Tailwind CSS + JavaScript','Interface e interações'],['Chart.js','Gráficos do painel e dos vendedores'],['FullCalendar','Agenda de instalações']],
+   // ['legenda','imagem grande','miniatura'] — a 1ª é a que aparece primeiro
+   g:[['Painel financeiro','img/gestao-solar/dashboard.webp','img/gestao-solar/dashboard-thumb.webp'],
+      ['Ranking de vendas','img/gestao-solar/vendedores.webp','img/gestao-solar/vendedores-thumb.webp'],
+      ['Controle de estoque','img/gestao-solar/estoque.webp','img/gestao-solar/estoque-thumb.webp'],
+      ['Kit para obra','img/gestao-solar/estoque-kit.webp','img/gestao-solar/estoque-kit-thumb.webp'],
+      ['Agenda de instalações','img/gestao-solar/cronograma.webp','img/gestao-solar/cronograma-thumb.webp'],
+      ['Cadastro de cliente','img/gestao-solar/cadastro.webp','img/gestao-solar/cadastro-thumb.webp'],
+      ['Relatório executivo','img/gestao-solar/dashboard-relatorio.webp','img/gestao-solar/dashboard-relatorio-thumb.webp'],
+      ['Login com a marca','img/gestao-solar/login.webp','img/gestao-solar/login-thumb.webp']],
+   l:[['Ver ao vivo',''],['Código','']]}
+];
+/* ===================== fim do conteúdo editável ===================== */
+
+const $=(s,c=document)=>c.querySelector(s),$$=(s,c=document)=>[...c.querySelectorAll(s)];
+const HAS=!!window.gsap&&!!window.ScrollTrigger; // se a CDN falhar, o site aparece estático em vez de quebrar
+const RM=!HAS||matchMedia('(prefers-reduced-motion: reduce)').matches,FINE=HAS&&matchMedia('(pointer:fine)').matches;
+if(HAS)gsap.registerPlugin(ScrollTrigger);
+
+/* ===== dados pessoais ===== */
+$$('[data-me]').forEach(e=>{const v=ME[e.dataset.me];if(v)e.textContent=v});
+$$('[data-mail]').forEach(a=>a.href='mailto:'+ME.email);
+$('#yr').textContent=new Date().getFullYear();
+const ext=l=>`<a href="${l[1]}" target="_blank" rel="noopener">${l[0]} ↗</a>`;
+$('#social').innerHTML=ME.links.map(ext).join('');
+if(ME.cv){const b=$('#cv1');b.href=ME.cv;b.textContent='Baixar CV ↓';b.setAttribute('download','')}
+const tick=()=>{try{$('#clock').textContent=new Intl.DateTimeFormat('pt-BR',{hour:'2-digit',minute:'2-digit',timeZone:ME.fuso}).format(new Date())+' — hora local'}catch(e){$('#clock').textContent=''}};
+tick();setInterval(tick,30000);
+$('#copy').onclick=async e=>{try{await navigator.clipboard.writeText(ME.email);e.target.textContent='Copiado ✓'}catch(_){e.target.textContent=ME.email}setTimeout(()=>e.target.textContent='Copiar e-mail',2000)};
+
+/* ===== render ===== */
+$('.track').innerHTML=[...TOOLS,...TOOLS,...TOOLS,...TOOLS].map(t=>`<span>${t}</span>`).join('');
+$('#list').innerHTML=WORKS.map((w,i)=>`<a class="row rv" href="#p${i}" data-i="${i}"><span class="id">${w[0]}</span><h3>${w[1]}</h3><span class="rl">${w[2]}</span><span class="yr">${w[3]}</span></a>`).join('');
+$('#pic').innerHTML=(ME.foto?`<img src="${ME.foto}" alt="Retrato de ${ME.nome}" loading="lazy">`:`<span aria-hidden="true">${ME.nome.split(/\s+/).map(p=>p[0]).slice(0,2).join('')}</span>`)+`<small class="lbl">${ME.local}</small>`;
+$('#bio').innerHTML=ME.bio.map(p=>`<p>${p}</p>`).join('')+`<div class="links">${ME.cv?`<a class="btn" href="${ME.cv}" download>Baixar CV ↓</a>`:''}${ME.links.map(l=>`<a class="lk" href="${l[1]}" target="_blank" rel="noopener">${l[0]} ↗</a>`).join('')}</div>`;
+$('#skills').innerHTML='<p class="lbl" style="grid-column:1/-1">Como trabalho</p>'+SKILLS.map((s,i)=>`<div class="rv"><p class="lbl">${String(i+1).padStart(2,'0')}</p><h4>${s[0]}</h4><p>${s[1]}</p></div>`).join('');
+$('#xp ul').innerHTML=XP.map(x=>`<li class="rv"><time>${x[0]}</time><h4>${x[1]}<small>${x[2]}</small></h4><p>${x[3]}</p></li>`).join('');
+if(!STATS.length)$('.st').remove();else $('#stats').innerHTML=STATS.map(s=>`<div><h4><span class="n" data-to="${s[0]}">${s[0]}</span><small>${s[1]}</small></h4><p class="lbl">${s[2]}</p></div>`).join('');
+
+/* tela de exemplo (SVG) até você colocar a captura real */
+const ph=(c,s)=>{
+  const nav=[0,1,2,3,4].map(k=>`<rect x="6" y="${22+k*9}" width="16" height="3" rx="1.5" fill="#fff" fill-opacity=".12"/>`).join('');
+  const cards=[0,1,2].map(k=>`<rect x="${36+k*40}" y="20" width="34" height="18" rx="3" fill="#fff" fill-opacity=".05" stroke="#fff" stroke-opacity=".1" stroke-width=".4"/><rect x="${40+k*40}" y="25" width="12" height="3" rx="1.5" fill="${c}"/>`).join('');
+  const bars=Array.from({length:14},(_,k)=>{const h=10+(k*7+s*13)%28;return `<rect x="${42+k*8}" y="${88-h}" width="4" height="${h}" rx="1" fill="${c}" fill-opacity="${.35+(k+s)%3*.2}"/>`}).join('');
+  return `<svg viewBox="0 0 160 100" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="160" height="100" fill="#0d0d10"/><rect width="28" height="100" fill="#fff" fill-opacity=".03"/><rect x="6" y="8" width="16" height="4" rx="2" fill="${c}"/>${nav}<rect x="36" y="8" width="60" height="5" rx="2" fill="#fff" fill-opacity=".18"/>${cards}<rect x="36" y="44" width="116" height="48" rx="3" fill="#fff" fill-opacity=".03" stroke="#fff" stroke-opacity=".1" stroke-width=".4"/>${bars}</svg>`;
+};
+const isV=s=>/\.mp4$/i.test(s[1]||'');
+const m=(i,k,th)=>{const s=PROJECTS[i].g[k];if(!th&&isV(s))return `<video src="${s[1]}" poster="${s[3]||''}" autoplay muted loop playsinline aria-label="${s[0]}"></video>`;return s[1]?`<img src="${th&&s[2]?s[2]:s[1]}" alt="${th?'':'Tela do '+PROJECTS[i].n+': '+s[0]}"${th?' loading="lazy"':''}>`:ph(WORKS[i][4],k+i*3)};
+
+/* estudos de caso: contexto à esquerda, galeria de telas fixa à direita */
+const TOT=String(PROJECTS.length).padStart(2,'0');
+$('#cases').innerHTML=PROJECTS.map((p,i)=>{const w=WORKS[i],lk=p.l.filter(l=>l[1]);return `<article class="case" id="p${i}">
+<div class="info">
+  <p class="lbl rv">Projeto ${w[0]} / ${TOT}</p>
+  <h3 class="rv">${p.n}</h3>
+  <p class="sum rv">${p.s}</p>
+  <dl class="meta rv">${[['Meu papel',p.f],['Tipo',w[2]],['Ano',w[3]]].map(x=>`<div><dt class="lbl">${x[0]}</dt><dd>${x[1]}</dd></div>`).join('')}</dl>
+  <div class="blk rv"><p class="lbl">O desafio</p><p>${p.d}</p></div>
+  ${p.a?`<div class="blk rv"><p class="lbl">${p.a[0]}</p><ol class="flow">${p.a[1].map(s=>`<li><b>${s[0]}</b><span>${s[1]}</span></li>`).join('')}</ol></div>`:''}
+  ${p.x?`<div class="blk rv"><p class="lbl">Decisões técnicas</p><div class="dec">${p.x.map(d=>`<div><h4>${d[0]}</h4><p>${d[1]}</p></div>`).join('')}</div></div>`:''}
+  <div class="blk rv"><p class="lbl">O que entreguei</p><ul>${p.r.map(x=>`<li>${x}</li>`).join('')}</ul></div>
+  <div class="blk rv"><p class="lbl">Stack</p><ul class="stack">${p.t.map(t=>`<li title="${t[1]}">${t[0]}</li>`).join('')}</ul></div>
+  ${lk.length?`<div class="links rv">${lk.map((l,j)=>`<a class="${j?'lk':'btn'}" href="${l[1]}" target="_blank" rel="noopener">${l[0]} ↗</a>`).join('')}</div>`:''}
+  ${p.c?`<p class="rv" style="margin-top:1.5rem;font-size:.8rem;color:var(--t3)">${p.c}</p>`:''}
+</div>
+<div class="media rv"><div class="frame"><div class="bar"><span></span><b></b></div><button type="button" class="stage" aria-label="Ampliar tela"></button></div><div class="thumbs">${p.g.map((s,k)=>`<button type="button" aria-label="Ver tela: ${s[0]}">${m(i,k,1)}</button>`).join('')}</div></div>
+</article>`}).join('');
+const ZM=$('#zoom'),SH=[];
+$$('.case').forEach((el,i)=>{const st=$('.stage',el),cap=$('.bar span',el),cnt=$('.bar b',el),bt=$$('.thumbs button',el),g=PROJECTS[i].g;
+  let cur=0;
+  const show=(k,a)=>{cur=(k+g.length)%g.length;k=cur;cap.textContent=g[k][0];cnt.textContent=`${k+1} / ${g.length}`;st.innerHTML=m(i,k);st.disabled=!g[k][1]||isV(g[k]);bt.forEach((b,j)=>b.classList.toggle('on',j===k));if(a&&!RM)gsap.fromTo(st,{opacity:0,scale:1.02},{opacity:1,scale:1,duration:.6,ease:'power3.out'});if(ZM.open&&ZM.dataset.i==i)zoom(i,k)};
+  bt.forEach((b,k)=>b.onclick=()=>show(k,1));show(0);
+  SH[i]=show;st.onclick=()=>{zoom(i,cur);ZM.showModal();lenis&&lenis.stop()};
+  // pré-carrega as telas grandes depois que a página abre
+  addEventListener('load',()=>setTimeout(()=>g.forEach(s=>{if(s[1]&&!isV(s))new Image().src=s[1]}),1500))});
+
+/* ===== tela ampliada ===== */
+function zoom(i,k){const s=PROJECTS[i].g[k];ZM.dataset.i=i;ZM.dataset.k=k;$('img',ZM).src=isV(s)?s[3]:s[1];$('img',ZM).alt='Tela do '+PROJECTS[i].n+': '+s[0];$('#zc').textContent=`${s[0]} · ${k+1} / ${PROJECTS[i].g.length}`}
+const step=d=>SH[ZM.dataset.i](+ZM.dataset.k+d);
+$('#zp').onclick=()=>step(-1);$('#zn').onclick=()=>step(1);$('#zx').onclick=()=>ZM.close();
+ZM.onclick=e=>{if(e.target===ZM)ZM.close()};
+ZM.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')step(-1);if(e.key==='ArrowRight')step(1)});
+ZM.addEventListener('close',()=>{lenis&&lenis.start();$$('.case')[ZM.dataset.i]&&$('.stage',$$('.case')[ZM.dataset.i]).focus()});
+
+/* ===== menu mobile ===== */
+const MB=$('#mb'),MM=$('#mm'),menu=o=>{MM.hidden=!o;MB.setAttribute('aria-expanded',o);MB.setAttribute('aria-label',o?'Fechar menu':'Abrir menu')};
+MB.onclick=()=>menu(MM.hidden);
+addEventListener('keydown',e=>{if(e.key==='Escape')menu(false)});
+
+/* ===== scroll: Lenis sincronizado ao ticker do GSAP ===== */
+let lenis;
+if(!RM&&window.Lenis){
+  lenis=new Lenis({duration:1.2,easing:t=>Math.min(1,1.001-2**(-10*t))});
+  lenis.on('scroll',ScrollTrigger.update);
+  gsap.ticker.add(t=>lenis.raf(t*1000));
+  gsap.ticker.lagSmoothing(0);
+}
+$$('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{menu(false);if(!lenis)return;e.preventDefault();const h=a.getAttribute('href');lenis.scrollTo(h==='#top'?0:h,{offset:-40,duration:1.5,easing:gsap.parseEase('expo.inOut')})}));
+
+/* ===== entrada: header + hero ===== */
+const F=$('.field'),LN=$$('.ln>span'),FD=$$('.fade');
+if(!RM){
+  gsap.set('#pill',{width:0,opacity:0});gsap.set('#pill>*',{autoAlpha:0,y:10});
+  gsap.set(F,{autoAlpha:0,scale:1.05});gsap.set(LN,{yPercent:120,rotateZ:2});gsap.set(FD,{y:20,autoAlpha:0});
+  gsap.timeline({delay:.2})
+    .to('#pill',{width:'100%',opacity:1,duration:1.2,ease:'expo.inOut'})
+    .to('#pill>*',{autoAlpha:1,y:0,duration:.6,stagger:.08,ease:'power3.out'},.7)
+    .to(F,{autoAlpha:.6,scale:1,duration:2.5,ease:'power2.out'},.4)
+    .to(LN,{yPercent:0,rotateZ:0,duration:1.4,stagger:.1,ease:'expo.out'},.9)
+    .to(FD,{y:0,autoAlpha:1,duration:1.2,stagger:.12,ease:'power3.out'},1.4);
+  if(FINE){ // parallax do mouse: título segue, fundo vai no sentido oposto
+    const q=(t,p,d)=>gsap.quickTo(t,p,{duration:d,ease:'power2.out'}),hx=q('.hero','x',1.5),hy=q('.hero','y',1.5),fx=q(F,'x',2),fy=q(F,'y',2);
+    addEventListener('mousemove',e=>{const x=(e.clientX/innerWidth-.5)*20,y=(e.clientY/innerHeight-.5)*20;hx(x);hy(y);fx(-x);fy(-y)});
+  }
+}
+
+/* ===== animações ligadas ao scroll ===== */
+if(!RM){
+  gsap.to('#pg',{scaleX:1,ease:'none',scrollTrigger:{start:0,end:'max',scrub:.3}});
+  gsap.to('.track',{xPercent:-50,duration:30,ease:'none',repeat:-1});
+  gsap.set('.rv',{y:28,autoAlpha:0}); // elementos .rv surgem ao entrar na tela
+  ScrollTrigger.batch('.rv',{start:'top 90%',once:true,onEnter:b=>gsap.to(b,{y:0,autoAlpha:1,duration:1.1,stagger:.08,ease:'power3.out',overwrite:true})});
+  $$('.n').forEach(n=>{const o={v:0};n.textContent=0;gsap.to(o,{v:+n.dataset.to,duration:2.2,ease:'power2.out',scrollTrigger:{trigger:'.st',start:'top 85%',once:true},onUpdate:()=>n.textContent=Math.ceil(o.v)})});
+  addEventListener('load',()=>ScrollTrigger.refresh());
+  if(document.fonts)document.fonts.ready.then(()=>ScrollTrigger.refresh());
+}
+
+/* ===== cursor com blend + botão magnético do contato ===== */
+if(FINE&&!RM){
+  const c=$('#cur'),cx=gsap.quickTo(c,'x',{duration:.25,ease:'power3'}),cy=gsap.quickTo(c,'y',{duration:.25,ease:'power3'});let on=false,hv=false;
+  gsap.set(c,{xPercent:-50,yPercent:-50});document.documentElement.classList.add('cc');
+  addEventListener('mousemove',e=>{if(!on){on=true;gsap.to(c,{opacity:1,duration:.3})}cx(e.clientX);cy(e.clientY)});
+  addEventListener('mouseover',e=>{const h=!!e.target.closest('a,button');if(h===hv)return;hv=h;gsap.to(c,{scale:h?4:1,backgroundColor:h?'rgba(255,255,255,.12)':'#fff',duration:.3,ease:'expo.out'})});
+  const o=$('.orb'),ox=gsap.quickTo(o,'x',{duration:.6,ease:'power3'}),oy=gsap.quickTo(o,'y',{duration:.6,ease:'power3'});
+  o.onmousemove=e=>{const r=o.getBoundingClientRect();ox((e.clientX-r.left-r.width/2)*.35);oy((e.clientY-r.top-r.height/2)*.35)};
+  o.onmouseleave=()=>{ox(0);oy(0)};
+}
+</script>
+<script>
+/* =====================================================================
+   FUNDO VIVO — céu de caracteres que cintilam + rastro ASCII do cursor.
+   Canvas puro, sem dependências. Ajuste os números em CFG.
+   ===================================================================== */
+(()=>{
+const cv=document.getElementById('bgfx');if(!cv||!cv.getContext)return;
+const ctx=cv.getContext('2d');
+const CFG={
+  densidade:8000,      // px² por estrela (menor = mais estrelas)
+  maxEstrelas:170,
+  brilho:.16,          // opacidade máxima das estrelas em repouso
+  parallax:.12,        // quanto as estrelas andam com a rolagem
+  rastro:.5,           // opacidade máxima do rastro (cor do texto)
+  laranja:.1,          // chance de um caractere do rastro sair em --ac
+  vida:650             // ms que o rastro leva para sumir (rápido = dura mais)
+};
+const FG='241,238,232',AC='255,107,53';
+const RAMP=' .·:-=+*%#';               // do mais apagado ao mais forte
+const rnd=Math.random;
+const RM=matchMedia('(prefers-reduced-motion: reduce)');
+let W=0,H=0,C=15,cols=0,font='',stars=[],wake=new Map(),last=null,mx=-1e4,my=-1e4,raf=0,lastT=0,off=0;
+
+function size(){
+  const dpr=Math.min(devicePixelRatio||1,2),nw=innerWidth,nh=innerHeight,regen=nw!==W||!stars.length;
+  W=nw;H=nh;cv.width=Math.round(W*dpr);cv.height=Math.round(H*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);
+  C=W<768?18:15;cols=Math.ceil(W/C);
+  font=`${Math.round(C*.78)}px "JetBrains Mono",ui-monospace,monospace`;
+  if(regen){ // barra de endereço do celular muda a altura: só recria se a largura mudar
+    const n=Math.min(CFG.maxEstrelas,Math.round(W*H/(W<768?CFG.densidade*1.4:CFG.densidade)));
+    stars=Array.from({length:n},()=>({x:(rnd()*cols|0)*C+C/2,y:rnd()*H,d:.3+rnd()*.7,p:rnd()*6.28,s:.3+rnd()*.9,ch:rnd()<.7?'.':'·',f:0,hot:false}));
+    wake.clear();
+  }
+}
+
+/* carimba células do rastro ao longo do movimento */
+function stamp(x,y,k){
+  const cx=x/C|0,cy=y/C|0,spread=Math.round(k*3);
+  put(cx,cy,k);
+  for(let i=0;i<spread;i++){const r=1+k*2.2,a=rnd()*6.28,d=rnd()*r;put(cx+Math.round(Math.cos(a)*d),cy+Math.round(Math.sin(a)*d),k*(.35+rnd()*.5))}
+}
+function put(cx,cy,k){
+  if(cx<0||cy<0||cx>=cols)return;
+  const key=cy*cols+cx,o=wake.get(key);
+  if(o){if(k>o.l){o.l=k;o.m=Math.max(o.m,k)}return}
+  wake.set(key,{x:cx*C+C/2,y:cy*C+C/2,l:k,m:k,hot:rnd()<CFG.laranja*(.5+k)});
+}
+function move(x,y){
+  mx=x;my=y;const t=performance.now();
+  if(last){
+    const dx=x-last.x,dy=y-last.y,dist=Math.hypot(dx,dy),dt=Math.max(8,t-last.t);
+    const k=Math.min(1,.22+(dist/dt)*.45),steps=Math.max(1,Math.ceil(dist/(C*.6)));
+    for(let i=1;i<=steps;i++)stamp(last.x+dx*i/steps,last.y+dy*i/steps,k);
+  }
+  last={x,y,t};wake.size&&!raf&&loop();
+}
+
+function draw(t,dt){
+  ctx.clearRect(0,0,W,H);ctx.font=font;ctx.textAlign='center';ctx.textBaseline='middle';
+  const sy=RM.matches?0:scrollY*CFG.parallax;
+  /* estrelas */
+  for(const s of stars){
+    let y=((s.y-sy*s.d)%H+H)%H,a,ch=s.ch,col=FG;
+    if(RM.matches){a=CFG.brilho*.6*s.d}
+    else{
+      a=CFG.brilho*s.d*(.35+.65*(.5+.5*Math.sin(t*.001*s.s+s.p)));
+      if(s.f>0){ // cintilada: . → + → * → + → .
+        s.f-=dt;const q=1-Math.abs(1-2*Math.max(0,s.f)/900);
+        ch=q>.66?'*':q>.25?'+':s.ch;a=Math.max(a,.15+.45*q);if(s.hot)col=AC;
+      }else if(rnd()<dt*.000012){s.f=900;s.hot=rnd()<.15}
+      const dm=Math.hypot(s.x-mx,y-my);if(dm<150)a+=.22*(1-dm/150); // acende perto do cursor
+    }
+    ctx.fillStyle=`rgba(${col},${a.toFixed(3)})`;ctx.fillText(ch,s.x,y);
+  }
+  /* rastro */
+  for(const [key,o] of wake){
+    o.l-=dt/(CFG.vida*(.6+o.m));
+    if(o.l<=0){wake.delete(key);continue}
+    let i=Math.max(1,Math.ceil(o.l*(RAMP.length-1)));
+    if(rnd()<.06)i=Math.max(1,Math.min(RAMP.length-1,i+(rnd()<.5?-1:1))); // leve "glitch"
+    const a=o.hot?.25+.6*o.l:.08+CFG.rastro*o.l;
+    ctx.fillStyle=`rgba(${o.hot?AC:FG},${a.toFixed(3)})`;ctx.fillText(RAMP[i],o.x,o.y);
+  }
+}
+
+/* 60fps com rastro ativo, ~30fps em repouso; parado com a aba oculta */
+function loop(){
+  raf=requestAnimationFrame(function f(t){
+    const dt=Math.min(100,t-(lastT||t));
+    if(wake.size||dt>=32){lastT=t;draw(t,dt)}
+    raf=document.hidden||RM.matches?0:requestAnimationFrame(f);
+  });
+}
+function start(){
+  cancelAnimationFrame(raf);raf=0;size();lastT=0;
+  if(RM.matches)draw(0,0);else loop();
+}
+
+addEventListener('resize',()=>{clearTimeout(off);off=setTimeout(start,120)},{passive:true});
+addEventListener('pointermove',e=>{if(!RM.matches)move(e.clientX,e.clientY)},{passive:true});
+addEventListener('pointerdown',e=>{if(RM.matches)return;for(let i=0;i<6;i++)stamp(e.clientX+(rnd()-.5)*C*2,e.clientY+(rnd()-.5)*C*2,.7);last=null;move(e.clientX,e.clientY)},{passive:true});
+document.addEventListener('mouseout',e=>{if(!e.relatedTarget){last=null;mx=my=-1e4}});
+document.addEventListener('visibilitychange',()=>{if(!document.hidden&&!RM.matches){lastT=0;if(!raf)loop()}});
+RM.addEventListener?.('change',start);
+addEventListener('scroll',()=>{if(RM.matches)return;last=null},{passive:true});
+(document.fonts?.ready||Promise.resolve()).then(start);
+})();
+</script>
+</body>
+</html>
