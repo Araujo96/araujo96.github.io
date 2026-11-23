@@ -220,6 +220,24 @@ footer{overflow:hidden}
 @media(pointer:coarse){#cur{display:none}}
 .cc,.cc *{cursor:none!important}
 @media(prefers-reduced-motion:reduce){.dot::after,.hbar span::before{animation:none}}
+
+/* ===== reorganização: resultado em destaque, detalhes sob demanda, provas, etiquetas ===== */
+.hero-links{display:flex;justify-content:center;gap:1.5rem;margin-top:1.5rem;font:400 .75rem var(--mono);letter-spacing:.12em;text-transform:uppercase}
+.hero-links a{color:var(--t2);transition:color .3s}.hero-links a:hover{color:var(--fg)}
+.row .nm{flex:1;min-width:0}.row .nm h3{flex:none}
+.row .res{display:block;margin-top:.6rem;font:400 .78rem/1.4 var(--mono);letter-spacing:.02em;color:var(--ac)}
+.res-case{margin-top:1rem;font:400 .85rem/1.5 var(--mono);color:var(--ac)}
+.more{margin-top:2.5rem;max-width:34rem;border-top:1px solid var(--ln)}
+.more>summary{list-style:none;display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:1rem 0;cursor:pointer;font-weight:500;color:var(--fg)}
+.more>summary::-webkit-details-marker{display:none}
+.more>summary i{font-style:normal;font-size:1.4rem;line-height:1;color:var(--ac);transition:transform .3s}
+.more[open]>summary i{transform:rotate(45deg)}
+.more>.blk:first-of-type{margin-top:1rem}
+.prova{margin-top:.75rem;font:400 .72rem/1.6 var(--mono);color:var(--t3)}
+.prova a{color:var(--t2);border-bottom:1px solid var(--ln);transition:color .3s,border-color .3s}.prova a:hover{color:var(--fg);border-color:var(--ac)}
+#xp .xp{margin-top:0}
+.tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.9rem}
+.tags span{padding:.2rem .6rem;border:1px solid var(--ln);border-radius:99px;font:400 .68rem/1.6 var(--mono);color:var(--t2)}
 /* fundo vivo: céu de caracteres + rastro ASCII do cursor (desenhado no canvas #bgfx) */
 #bgfx{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
 @media print{#bgfx{display:none}}
@@ -233,11 +251,11 @@ footer{overflow:hidden}
 <header id="hd">
   <div id="pill">
     <a class="logo" href="#top" data-me="nome">Lucas Araújo</a>
-    <nav aria-label="Principal"><a href="#work">Projetos</a><a href="#about">Sobre</a><a href="#xp">Experiência</a><a href="#contact">Contato</a></nav>
+    <nav aria-label="Principal"><a href="#work">Projetos</a><a href="#xp">Experiência</a><a href="#about">Sobre</a><a href="#contact">Contato</a></nav>
     <a class="btn" href="#contact">Fale comigo</a>
     <button id="mb" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="mm"><span></span><span></span></button>
   </div>
-  <nav id="mm" aria-label="Menu" hidden><a href="#work">Projetos</a><a href="#about">Sobre</a><a href="#xp">Experiência</a><a href="#contact">Contato</a></nav>
+  <nav id="mm" aria-label="Menu" hidden><a href="#work">Projetos</a><a href="#xp">Experiência</a><a href="#about">Sobre</a><a href="#contact">Contato</a></nav>
 </header>
 
 <main>
@@ -245,9 +263,10 @@ footer{overflow:hidden}
   <div class="field"></div>
   <div class="hero">
     <p class="badge fade"><span class="dot"></span><span data-me="status">Disponível para novas oportunidades</span></p>
-    <h1><span class="ln"><span>Eu construo</span></span><span class="ln"><span><i>sistemas</i> completos.</span></span></h1>
-    <p class="sub fade"><b data-me="nome">Lucas Araújo</b> — <span data-me="cargo">desenvolvedor full stack (Python e React)</span>. Há mais de 3 anos desenvolvo aplicações web de ponta a ponta: modelagem de dados, APIs, processamento assíncrono, integrações com serviços externos e interfaces responsivas, até o deploy e a manutenção em produção.</p>
+    <h1><span class="ln"><span>Desenvolvedor</span></span><span class="ln"><span><i>full stack.</i></span></span></h1>
+    <p class="sub fade"><b data-me="nome">Lucas Araújo</b> — Python, Django, FastAPI e React. Há mais de 3 anos desenvolvo aplicações web de ponta a ponta, da modelagem de dados ao deploy e à manutenção em produção.</p>
     <div class="cta-row fade"><a class="btn big" href="#work">Ver projetos</a><a class="btn big ghost" id="cv1" href="#contact">Contato</a></div>
+    <p class="hero-links fade" id="heroLinks"></p>
   </div>
   <div class="hbar lbl fade"><span data-me="local">Natal, RN, Brasil</span><span>Role para ver</span><span id="clock">—</span></div>
 </section>
@@ -261,14 +280,18 @@ footer{overflow:hidden}
   <div id="cases"></div>
 </div></section>
 
+<section id="xp"><div class="wrap">
+  <div class="head"><div><span class="lbl rv">02 — Experiência</span><h2 class="rv">Experiência<br><i>e formação.</i></h2></div></div>
+  <div class="xp"><ul></ul></div>
+</div></section>
+
 <section id="about"><div class="wrap">
-  <div class="head"><div><span class="lbl rv">02 — Sobre</span><h2 class="rv">Sobre<br><i>mim.</i></h2></div></div>
+  <div class="head"><div><span class="lbl rv">03 — Sobre</span><h2 class="rv">Sobre<br><i>mim.</i></h2></div></div>
   <div class="about">
     <div class="pic rv" id="pic"></div>
     <div class="bio rv" id="bio"></div>
   </div>
   <div class="skills" id="skills"></div>
-  <div class="xp" id="xp"><p class="lbl">Experiência e formação</p><ul></ul></div>
 </div></section>
 
 <section class="st" aria-label="Números"><div class="wrap" id="stats"></div></section>
@@ -277,7 +300,7 @@ footer{overflow:hidden}
 <footer id="contact">
   <div class="glow" style="width:100vw;height:25rem;left:0;bottom:-8rem"></div>
   <div class="wrap">
-    <span class="lbl rv" style="display:block;margin-bottom:2rem">03 — Contato</span>
+    <span class="lbl rv" style="display:block;margin-bottom:2rem">04 — Contato</span>
     <div class="cta"><h2 class="rv">Procurando um dev<br><i>para o time?</i></h2><a class="orb" data-mail href="mailto:araujo.dev996@gmail.com"><span>Fale comigo</span></a></div>
     <div class="mail rv"><a data-mail data-me="email" href="mailto:araujo.dev996@gmail.com">araujo.dev996@gmail.com</a><button class="lk" id="copy" type="button">Copiar e-mail</button><a class="lk" id="cv2" href="cv/Lucas_Araujo_CV_Full_Stack.pdf" download>Baixar CV (PDF) ↓</a></div>
     <div class="ft lbl"><span>© <span id="yr">2026</span> <span data-me="nome">Lucas Araújo</span></span><nav id="social" aria-label="Redes"></nav><a href="#top">Voltar ao topo ↑</a></div>
@@ -312,27 +335,27 @@ const ME={
        'Também desenvolvo projetos pessoais de código aberto, como o legenDay, uma aplicação desktop em Python e Qt com testes automatizados e publicação contínua pelo GitHub Actions.']
 };
 const TOOLS=['Python','Django','FastAPI','React','PostgreSQL','Redis','Celery','Docker','CI/CD','Tailwind','PySide6 (Qt)','pytest'];
-const SKILLS=[ // "O que faço": [área, o que você faz nela]
-  ['Back-end e APIs','APIs REST com Django, Django REST Framework e FastAPI: regras de negócio, autenticação e permissões, validação de dados, paginação e filtros, geração de relatórios e documentos.'],
-  ['Dados e processamento assíncrono','Modelagem relacional e consultas no PostgreSQL, migrations e índices. Filas e tarefas agendadas com Celery e Redis, com retentativas, controle de taxa e cache.'],
-  ['Integrações','Consumo de APIs de terceiros, de fabricantes de equipamentos a serviços de mapas, CEP e mensageria (WhatsApp, e-mail, Twilio), com tratamento de erros, timeouts, limites de requisição e alternativas quando o serviço cai.'],
-  ['Front-end','Interfaces em React e JavaScript, layouts responsivos com Tailwind, dashboards com gráficos, formulários e fluxos pensados primeiro para o celular.'],
-  ['Qualidade e entrega','Testes automatizados com pytest e Playwright, de unidade a ponta a ponta no navegador. Docker, pipelines de CI/CD e deploy em servidores Linux.'],
-  ['Produção e manutenção','Monitoramento de erros com Sentry, logs e alertas, investigação de incidentes, evolução de código legado e refatoração com cobertura de testes.']
+const SKILLS=[ // "O que faço": [área, o que você faz nela, [projetos onde isso aparece]]
+  ['Back-end e APIs','APIs REST com Django, Django REST Framework e FastAPI: regras de negócio, autenticação e permissões, validação de dados, paginação e filtros, geração de relatórios e documentos.',['Monitor de Usinas','Gestão Solar']],
+  ['Dados e processamento assíncrono','Modelagem relacional e consultas no PostgreSQL, migrations e índices. Filas e tarefas agendadas com Celery e Redis, com retentativas, controle de taxa e cache.',['Monitor de Usinas']],
+  ['Integrações','Consumo de APIs de terceiros, de fabricantes de equipamentos a serviços de mapas, CEP e mensageria (WhatsApp, e-mail, Twilio), com tratamento de erros, timeouts, limites de requisição e alternativas quando o serviço cai.',['Monitor de Usinas','Catálogo SetPoint']],
+  ['Front-end','Interfaces em React e JavaScript, layouts responsivos com Tailwind, dashboards com gráficos, formulários e fluxos pensados primeiro para o celular.',['Monitor de Usinas','Catálogo SetPoint']],
+  ['Qualidade e entrega','Testes automatizados com pytest e Playwright, de unidade a ponta a ponta no navegador. Docker, pipelines de CI/CD e deploy em servidores Linux.',['Catálogo SetPoint','legenDay']],
+  ['Produção e manutenção','Monitoramento de erros com Sentry, logs e alertas, investigação de incidentes, evolução de código legado e refatoração com cobertura de testes.',['Monitor de Usinas','Catálogo SetPoint']]
 ];
-const XP=[ // [período, cargo, empresa, o que você fez] — mais recente primeiro
-  ['mar. 2024 — Hoje','Desenvolvedor Full Stack','Ejb Engenharia Solar e Elétrica · Natal','Desenvolvimento e manutenção de sistemas web internos e para clientes, de ponta a ponta: levantamento de requisitos, modelagem de dados, APIs, processamento assíncrono, integrações com serviços externos, interfaces, deploy com Docker e CI/CD e suporte em produção.'],
-  ['ago. 2022 — mai. 2023','Desenvolvedor Full Stack','Intersoftware · Natal','Desenvolvi módulos de prontuário eletrônico, faturamento, convênios e financeiro de um sistema de gestão clínica em Django, integrei mensagens via Twilio e evoluí código legado com monitoramento no Sentry.'],
+const XP=[ // [período, cargo, empresa, o que você fez, [tecnologias]] — mais recente primeiro
+  ['mar. 2024 — Hoje','Desenvolvedor Full Stack','Ejb Engenharia Solar e Elétrica · Natal','Desenvolvimento e manutenção de sistemas web internos e para clientes, de ponta a ponta: levantamento de requisitos, modelagem de dados, APIs, processamento assíncrono, integrações com serviços externos, interfaces, deploy com Docker e CI/CD e suporte em produção.',['Python','Django','FastAPI','Celery','Redis','PostgreSQL','React','Docker','CI/CD']],
+  ['ago. 2022 — mai. 2023','Desenvolvedor Full Stack','Intersoftware · Natal','Desenvolvi módulos de prontuário eletrônico, faturamento, convênios e financeiro de um sistema de gestão clínica em Django, integrei mensagens via Twilio e evoluí código legado com monitoramento no Sentry.',['Python','Django','PostgreSQL','JavaScript','Twilio','Sentry']],
   ['fev. 2018 — ago. 2022','Análise e Desenvolvimento de Sistemas','UFRN · Universidade Federal do Rio Grande do Norte','Graduação em tecnologia com base em programação, banco de dados, engenharia de software e redes.']
 ];
 const STATS=[ // [número, sufixo, legenda] — use apenas números reais · vazio = a seção some
   // [800,'+','Usinas monitoradas'],[40,'+','Usuários na plataforma de gestão'],[3,'+','Anos de experiência'],[15,' min','Para detectar uma falha']
 ];
-const WORKS=[ // [nº, projeto, tipo, ano, cor da tela de exemplo]
-  ['01','Monitor de Usinas','Monitoramento em tempo real','2025','#0ea5e9'],
-  ['02','Catálogo SetPoint','Catálogo e pedidos online','2026','#f7c600'],
-  ['03','legenDay','App desktop de código aberto','2026','#ffd54a'],
-  ['04','Gestão Solar','Sistema de gestão','2025','#3b82f6']
+const WORKS=[ // [nº, projeto, tipo, ano, cor da tela de exemplo, resultado em destaque]
+  ['01','Monitor de Usinas','Monitoramento em tempo real','2025','#0ea5e9','800+ usinas monitoradas · falha detectada em até 15 min'],
+  ['02','Catálogo SetPoint','Catálogo e pedidos online','2026','#f7c600','+10 mil vendas por mês · frete calculado pela distância'],
+  ['03','legenDay','App desktop de código aberto','2026','#ffd54a','125 testes automatizados · build para Windows e Linux'],
+  ['04','Gestão Solar','Sistema de gestão','2025','#3b82f6','Usado por mais de 40 profissionais no dia a dia']
 ];
 // Um item por linha de WORKS, na mesma ordem.
 // f = seu papel · s = resumo · d = desafio · r = o que entregou · t = ferramentas [nome, para que usou]
@@ -493,11 +516,12 @@ $('#copy').onclick=async e=>{try{await navigator.clipboard.writeText(ME.email);e
 
 /* ===== render ===== */
 $('.track').innerHTML=[...TOOLS,...TOOLS,...TOOLS,...TOOLS].map(t=>`<span>${t}</span>`).join('');
-$('#list').innerHTML=WORKS.map((w,i)=>`<a class="row rv" href="#p${i}" data-i="${i}"><span class="id">${w[0]}</span><h3>${w[1]}</h3><span class="rl">${w[2]}</span><span class="yr">${w[3]}</span></a>`).join('');
+$('#list').innerHTML=WORKS.map((w,i)=>`<a class="row rv" href="#p${i}" data-i="${i}"><span class="id">${w[0]}</span><div class="nm"><h3>${w[1]}</h3>${w[5]?`<span class="res">${w[5]}</span>`:''}</div><span class="rl">${w[2]}</span><span class="yr">${w[3]}</span></a>`).join('');
 $('#pic').innerHTML=(ME.foto?`<img src="${ME.foto}" alt="Retrato de ${ME.nome}" loading="lazy">`:`<span aria-hidden="true">${ME.nome.split(/\s+/).map(p=>p[0]).slice(0,2).join('')}</span>`)+`<small class="lbl">${ME.local}</small>`;
 $('#bio').innerHTML=ME.bio.map(p=>`<p>${p}</p>`).join('')+`<div class="links">${ME.cv?`<a class="btn" href="${ME.cv}" download>Baixar CV ↓</a>`:''}${ME.links.map(l=>`<a class="lk" href="${l[1]}" target="_blank" rel="noopener">${l[0]} ↗</a>`).join('')}</div>`;
-$('#skills').innerHTML='<p class="lbl" style="grid-column:1/-1">O que faço</p>'+SKILLS.map((s,i)=>`<div class="rv"><p class="lbl">${String(i+1).padStart(2,'0')}</p><h4>${s[0]}</h4><p>${s[1]}</p></div>`).join('');
-$('#xp ul').innerHTML=XP.map(x=>`<li class="rv"><time>${x[0]}</time><h4>${x[1]}<small>${x[2]}</small></h4><p>${x[3]}</p></li>`).join('');
+$('#heroLinks').innerHTML=ME.links.filter(l=>l[0]!=='WhatsApp').map(l=>`<a href="${l[1]}" target="_blank" rel="noopener">${l[0]} ↗</a>`).join('');
+$('#skills').innerHTML='<p class="lbl" style="grid-column:1/-1">O que faço</p>'+SKILLS.map((s,i)=>`<div class="rv"><p class="lbl">${String(i+1).padStart(2,'0')}</p><h4>${s[0]}</h4><p>${s[1]}</p>${s[2]?`<p class="prova">Veja em ${s[2].map(n=>{const k=PROJECTS.findIndex(x=>x.n===n);return k<0?n:`<a href="#p${k}">${n}</a>`}).join(' · ')}</p>`:''}</div>`).join('');
+$('#xp ul').innerHTML=XP.map(x=>`<li class="rv"><time>${x[0]}</time><h4>${x[1]}<small>${x[2]}</small></h4><div><p>${x[3]}</p>${x[4]?`<p class="tags">${x[4].map(t=>`<span>${t}</span>`).join('')}</p>`:''}</div></li>`).join('');
 if(!STATS.length)$('.st').remove();else $('#stats').innerHTML=STATS.map(s=>`<div><h4><span class="n" data-to="${s[0]}">${s[0]}</span><small>${s[1]}</small></h4><p class="lbl">${s[2]}</p></div>`).join('');
 
 /* tela de exemplo (SVG) até você colocar a captura real */
@@ -517,13 +541,16 @@ $('#cases').innerHTML=PROJECTS.map((p,i)=>{const w=WORKS[i],lk=p.l.filter(l=>l[1
   <p class="lbl rv">Projeto ${w[0]} / ${TOT}</p>
   <h3 class="rv">${p.n}</h3>
   <p class="sum rv">${p.s}</p>
+  ${w[5]?`<p class="res-case rv">${w[5]}</p>`:''}
   <dl class="meta rv">${[['Meu papel',p.f],['Tipo',w[2]],['Ano',w[3]]].map(x=>`<div><dt class="lbl">${x[0]}</dt><dd>${x[1]}</dd></div>`).join('')}</dl>
   <div class="blk rv"><p class="lbl">O desafio</p><p>${p.d}</p></div>
-  ${p.a?`<div class="blk rv"><p class="lbl">${p.a[0]}</p><ol class="flow">${p.a[1].map(s=>`<li><b>${s[0]}</b><span>${s[1]}</span></li>`).join('')}</ol></div>`:''}
   ${p.x?`<div class="blk rv"><p class="lbl">Decisões técnicas</p><div class="dec">${p.x.map(d=>`<div><h4>${d[0]}</h4><p>${d[1]}</p></div>`).join('')}</div></div>`:''}
-  <div class="blk rv"><p class="lbl">O que entreguei</p><ul>${p.r.map(x=>`<li>${x}</li>`).join('')}</ul></div>
-  <div class="blk rv"><p class="lbl">Stack</p><ul class="stack">${p.t.map(t=>`<li title="${t[1]}">${t[0]}</li>`).join('')}</ul></div>
   ${lk.length?`<div class="links rv">${lk.map((l,j)=>`<a class="${j?'lk':'btn'}" href="${l[1]}" target="_blank" rel="noopener">${l[0]} ↗</a>`).join('')}</div>`:''}
+  <details class="more rv"><summary><span>Arquitetura, entregas e stack</span><i aria-hidden="true">+</i></summary>
+    ${p.a?`<div class="blk"><p class="lbl">${p.a[0]}</p><ol class="flow">${p.a[1].map(s=>`<li><b>${s[0]}</b><span>${s[1]}</span></li>`).join('')}</ol></div>`:''}
+    <div class="blk"><p class="lbl">O que entreguei</p><ul>${p.r.map(x=>`<li>${x}</li>`).join('')}</ul></div>
+    <div class="blk"><p class="lbl">Stack</p><ul class="stack">${p.t.map(t=>`<li title="${t[1]}">${t[0]}</li>`).join('')}</ul></div>
+  </details>
   ${p.c?`<p class="rv" style="margin-top:1.5rem;font-size:.8rem;color:var(--t3)">${p.c}</p>`:''}
 </div>
 <div class="media rv"><div class="frame"><div class="bar"><span></span><b></b></div><button type="button" class="stage" aria-label="Ampliar tela"></button></div><div class="thumbs">${p.g.map((s,k)=>`<button type="button" aria-label="Ver tela: ${s[0]}">${m(i,k,1)}</button>`).join('')}</div></div>
@@ -543,6 +570,7 @@ const step=d=>SH[ZM.dataset.i](+ZM.dataset.k+d);
 $('#zp').onclick=()=>step(-1);$('#zn').onclick=()=>step(1);$('#zx').onclick=()=>ZM.close();
 ZM.onclick=e=>{if(e.target===ZM)ZM.close()};
 ZM.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')step(-1);if(e.key==='ArrowRight')step(1)});
+$$('.more').forEach(d=>d.addEventListener('toggle',()=>{if(HAS)ScrollTrigger.refresh()}));
 ZM.addEventListener('close',()=>{lenis&&lenis.start();$$('.case')[ZM.dataset.i]&&$('.stage',$$('.case')[ZM.dataset.i]).focus()});
 
 /* ===== menu mobile ===== */
