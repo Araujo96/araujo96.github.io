@@ -179,7 +179,7 @@ h1{font-size:clamp(3.4rem,11.5vw,10.5rem);line-height:.9;letter-spacing:-.035em}
 .bio p+p{margin-top:1.5rem;font:300 1.0625rem/1.7 var(--sans);letter-spacing:0;color:var(--t2);max-width:38rem}
 .bio .links{margin-top:2rem}
 .skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(13rem,1fr));gap:2rem;margin-top:clamp(4rem,8vw,7rem);padding-top:2.5rem;border-top:1px solid var(--ln)}
-@media(min-width:960px){.skills{grid-template-columns:repeat(4,1fr)}}
+@media(min-width:960px){.skills{grid-template-columns:repeat(3,1fr);column-gap:3rem}}
 .skills h4{margin:.75rem 0 .5rem;font-size:1.75rem}
 .skills p:last-child{color:var(--t2);font-size:.95rem}
 .xp{margin-top:clamp(4rem,8vw,7rem)}
@@ -246,7 +246,7 @@ footer{overflow:hidden}
   <div class="hero">
     <p class="badge fade"><span class="dot"></span><span data-me="status">Disponível para novas oportunidades</span></p>
     <h1><span class="ln"><span>Eu construo</span></span><span class="ln"><span><i>sistemas</i> completos.</span></span></h1>
-    <p class="sub fade"><b data-me="nome">Lucas Araújo</b> — <span data-me="cargo">desenvolvedor full stack (Python e React)</span>. Há mais de 3 anos construo sistemas que rodam em produção: monitoramento com filas e alertas, um catálogo com pedidos e frete pela distância e uma plataforma de gestão.</p>
+    <p class="sub fade"><b data-me="nome">Lucas Araújo</b> — <span data-me="cargo">desenvolvedor full stack (Python e React)</span>. Há mais de 3 anos desenvolvo aplicações web de ponta a ponta: modelagem de dados, APIs, processamento assíncrono, integrações com serviços externos e interfaces responsivas, até o deploy e a manutenção em produção.</p>
     <div class="cta-row fade"><a class="btn big" href="#work">Ver projetos</a><a class="btn big ghost" id="cv1" href="#contact">Contato</a></div>
   </div>
   <div class="hbar lbl fade"><span data-me="local">Natal, RN, Brasil</span><span>Role para ver</span><span id="clock">—</span></div>
@@ -255,7 +255,7 @@ footer{overflow:hidden}
 <section class="mq" aria-label="Ferramentas"><span class="lbl c">Ferramentas com que trabalho</span><div class="track"></div></section>
 
 <section id="work"><div class="wrap">
-  <div class="head"><div><span class="lbl rv">01 — Trabalhos</span><h2 class="rv">Projetos<br><i>selecionados.</i></h2></div><p class="rv">Sistemas em produção e um app de código aberto: monitoramento de usinas, um catálogo com pedidos e frete pela distância, um app para aprender inglês com filmes e uma plataforma de gestão. Veja a arquitetura e as decisões técnicas de cada um.</p></div>
+  <div class="head"><div><span class="lbl rv">01 — Trabalhos</span><h2 class="rv">Projetos<br><i>selecionados.</i></h2></div><p class="rv">Alguns dos sistemas em que trabalhei, entre projetos em produção e de código aberto, com a arquitetura e as decisões técnicas de cada um.</p></div>
   <div class="th lbl"><span class="id">Nº</span><span style="flex:1">Projeto</span><span class="rl">Tipo</span><span class="yr">Ano</span></div>
   <div id="list"></div>
   <div id="cases"></div>
@@ -307,19 +307,21 @@ const ME={
   cv:'cv/Lucas_Araujo_CV_Full_Stack.pdf', // vazio = botão vira "Contato"
   links:[['LinkedIn','https://www.linkedin.com/in/lucas-ara%C3%BAjo-7792082a3'],['GitHub','https://github.com/Araujo96'],['WhatsApp','https://wa.me/5584996060967']],
   // 1º parágrafo aparece grande; os seguintes, em texto normal
-  bio:['Sou desenvolvedor na Ejb Engenharia Solar e Elétrica, onde cuido do desenvolvimento dos sistemas da empresa e de clientes, do banco de dados ao deploy.',
-       'Antes, na Intersoftware, trabalhei em um sistema de gestão clínica em produção, evoluindo código legado e integrações. Sou formado em Análise e Desenvolvimento de Sistemas pela UFRN.',
-       'Fora do trabalho, criei o legenDay, um player para aprender inglês com filmes, porque parar o filme para procurar cada palavra quebrava o ritmo. É de código aberto, com testes e build automático.']
+  bio:['Sou desenvolvedor full stack e atuo em todo o ciclo de um sistema: entender a necessidade, modelar os dados, construir back-end e front-end, colocar no ar e manter funcionando.',
+       'Hoje trabalho na Ejb Engenharia Solar e Elétrica, desenvolvendo e mantendo sistemas internos e para clientes. Antes, na Intersoftware, atuei em um sistema de gestão clínica em produção, com evolução de código legado e integrações. Sou formado em Análise e Desenvolvimento de Sistemas pela UFRN.',
+       'Também desenvolvo projetos pessoais de código aberto, como o legenDay, uma aplicação desktop em Python e Qt com testes automatizados e publicação contínua pelo GitHub Actions.']
 };
 const TOOLS=['Python','Django','FastAPI','React','PostgreSQL','Redis','Celery','Docker','CI/CD','Tailwind','PySide6 (Qt)','pytest'];
-const SKILLS=[ // "Como trabalho": [prática, exemplo real nos projetos]
-  ['Testo antes de mexer','No catálogo, escrevi testes sobre o sistema já em produção antes de qualquer melhoria, e eles acharam 4 bugs que afetavam clientes. O legenDay tem 125 testes, inclusive de interface.'],
-  ['Conto com a falha','Serviço externo cai. No monitoramento, a chamada que falha volta para a fila com retentativa; no catálogo, se o mapa falha, o pedido segue com frete a combinar.'],
-  ['Respeito os limites de quem integro','Controle de taxa para as 90 chamadas/min da API dos inversores; cache de 30 dias e limite por IP para o serviço de mapas.'],
-  ['Acompanho o que vai para produção','Docker e CI/CD no deploy, alertas por e-mail e WhatsApp e um painel que mostra a saúde do próprio coletor de dados.']
+const SKILLS=[ // "O que faço": [área, o que você faz nela]
+  ['Back-end e APIs','APIs REST com Django, Django REST Framework e FastAPI: regras de negócio, autenticação e permissões, validação de dados, paginação e filtros, geração de relatórios e documentos.'],
+  ['Dados e processamento assíncrono','Modelagem relacional e consultas no PostgreSQL, migrations e índices. Filas e tarefas agendadas com Celery e Redis, com retentativas, controle de taxa e cache.'],
+  ['Integrações','Consumo de APIs de terceiros, de fabricantes de equipamentos a serviços de mapas, CEP e mensageria (WhatsApp, e-mail, Twilio), com tratamento de erros, timeouts, limites de requisição e alternativas quando o serviço cai.'],
+  ['Front-end','Interfaces em React e JavaScript, layouts responsivos com Tailwind, dashboards com gráficos, formulários e fluxos pensados primeiro para o celular.'],
+  ['Qualidade e entrega','Testes automatizados com pytest e Playwright, de unidade a ponta a ponta no navegador. Docker, pipelines de CI/CD e deploy em servidores Linux.'],
+  ['Produção e manutenção','Monitoramento de erros com Sentry, logs e alertas, investigação de incidentes, evolução de código legado e refatoração com cobertura de testes.']
 ];
 const XP=[ // [período, cargo, empresa, o que você fez] — mais recente primeiro
-  ['mar. 2024 — Hoje','Desenvolvedor Full Stack','Ejb Engenharia Solar e Elétrica · Natal','Desenvolvo os sistemas da empresa e de clientes, do banco de dados ao deploy: o monitoramento de usinas fotovoltaicas (FastAPI, Celery, Redis, React), a plataforma de gestão interna e o catálogo com pedidos da SetPoint (Django). Docker e CI/CD no deploy.'],
+  ['mar. 2024 — Hoje','Desenvolvedor Full Stack','Ejb Engenharia Solar e Elétrica · Natal','Desenvolvimento e manutenção de sistemas web internos e para clientes, de ponta a ponta: levantamento de requisitos, modelagem de dados, APIs, processamento assíncrono, integrações com serviços externos, interfaces, deploy com Docker e CI/CD e suporte em produção.'],
   ['ago. 2022 — mai. 2023','Desenvolvedor Full Stack','Intersoftware · Natal','Desenvolvi módulos de prontuário eletrônico, faturamento, convênios e financeiro de um sistema de gestão clínica em Django, integrei mensagens via Twilio e evoluí código legado com monitoramento no Sentry.'],
   ['fev. 2018 — ago. 2022','Análise e Desenvolvimento de Sistemas','UFRN · Universidade Federal do Rio Grande do Norte','Graduação em tecnologia com base em programação, banco de dados, engenharia de software e redes.']
 ];
@@ -494,7 +496,7 @@ $('.track').innerHTML=[...TOOLS,...TOOLS,...TOOLS,...TOOLS].map(t=>`<span>${t}</
 $('#list').innerHTML=WORKS.map((w,i)=>`<a class="row rv" href="#p${i}" data-i="${i}"><span class="id">${w[0]}</span><h3>${w[1]}</h3><span class="rl">${w[2]}</span><span class="yr">${w[3]}</span></a>`).join('');
 $('#pic').innerHTML=(ME.foto?`<img src="${ME.foto}" alt="Retrato de ${ME.nome}" loading="lazy">`:`<span aria-hidden="true">${ME.nome.split(/\s+/).map(p=>p[0]).slice(0,2).join('')}</span>`)+`<small class="lbl">${ME.local}</small>`;
 $('#bio').innerHTML=ME.bio.map(p=>`<p>${p}</p>`).join('')+`<div class="links">${ME.cv?`<a class="btn" href="${ME.cv}" download>Baixar CV ↓</a>`:''}${ME.links.map(l=>`<a class="lk" href="${l[1]}" target="_blank" rel="noopener">${l[0]} ↗</a>`).join('')}</div>`;
-$('#skills').innerHTML='<p class="lbl" style="grid-column:1/-1">Como trabalho</p>'+SKILLS.map((s,i)=>`<div class="rv"><p class="lbl">${String(i+1).padStart(2,'0')}</p><h4>${s[0]}</h4><p>${s[1]}</p></div>`).join('');
+$('#skills').innerHTML='<p class="lbl" style="grid-column:1/-1">O que faço</p>'+SKILLS.map((s,i)=>`<div class="rv"><p class="lbl">${String(i+1).padStart(2,'0')}</p><h4>${s[0]}</h4><p>${s[1]}</p></div>`).join('');
 $('#xp ul').innerHTML=XP.map(x=>`<li class="rv"><time>${x[0]}</time><h4>${x[1]}<small>${x[2]}</small></h4><p>${x[3]}</p></li>`).join('');
 if(!STATS.length)$('.st').remove();else $('#stats').innerHTML=STATS.map(s=>`<div><h4><span class="n" data-to="${s[0]}">${s[0]}</span><small>${s[1]}</small></h4><p class="lbl">${s[2]}</p></div>`).join('');
 
